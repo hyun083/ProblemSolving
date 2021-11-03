@@ -1,2 +1,2 @@
 # boj
-test for git.
+source code for BaekJoon Online problems.
