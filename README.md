@@ -1,2 +1,2 @@
 # boj
-source code for BaekJoon Online problems.
+source code for [BaekJoon Online Judge](https://www.acmicpc.net).
