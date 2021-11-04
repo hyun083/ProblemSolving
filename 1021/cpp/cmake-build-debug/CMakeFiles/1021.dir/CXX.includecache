@@ -6,7 +6,7 @@
 
 #IncludeRegexTransform: 
 
-/Users/hyun/Developer/CLionProject/boj/1021/main.cpp
+/Users/hyun/Developer/boj/1021/cpp/main.cpp
 iostream
 -
 deque
