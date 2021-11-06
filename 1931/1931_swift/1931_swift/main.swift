@@ -8,31 +8,28 @@
 import Foundation
 
 let N = Int(readLine()!)!
-var starts = [Int]()
-var ends = [Int]()
+
+var inputs = [[Int]]()
 var outputs = [[Int]]()
 
 for _ in 1...N{
-    let inputs = readLine()!.split(separator: " ").map{Int(String($0))!}
-    starts.append(inputs.first!)
-    ends.append(inputs.last!)
+    let input = readLine()!.split(separator: " ").map{Int(String($0))!}
+    inputs.append([input[0],input[1]])
 }
 
-var minInedx = ends.firstIndex(of: ends.min()!)!
-outputs.append([starts.remove(at: minInedx),ends.remove(at: minInedx)])
+var min = inputs.map{$0[1]}.min()!
+var minIndex = inputs.firstIndex(of: inputs.filter(){$0[1]==min}.first!)!
+outputs.append(inputs.remove(at: minIndex))
 
-while starts.count != 0{
-    let lastEnd = outputs.last!
-    for start in starts {
-        if start < lastEnd[1]{
-            let index = starts.firstIndex(of: start)!
-            starts.remove(at: index)
-            ends.remove(at: index)
+while inputs.count != 0{
+    let lastEnd = outputs[outputs.count-1][1]
+    for input in inputs {
+        if input[0] < lastEnd{
+            inputs.remove(at: inputs.firstIndex(of: input)!)
         }
     }
-
-    let minInedx = ends.firstIndex(of: ends.min()!)!
-    outputs.append([starts.remove(at: minInedx),ends.remove(at: minInedx)])
+    min = inputs.map{$0[1]}.min()!
+    minIndex = inputs.firstIndex(of: inputs.filter(){$0[1]==min}.first!)!
+    outputs.append(inputs.remove(at: minIndex))
 }
-
 print(outputs.count)
