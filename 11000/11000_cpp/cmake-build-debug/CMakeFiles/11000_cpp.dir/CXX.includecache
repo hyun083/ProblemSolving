@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/hyun/Developer/boj/11000/11000_cpp/main.cpp
+iostream
+-
+vector
+-
+queue
+-
+algorithm
+-
+

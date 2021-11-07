@@ -9,7 +9,7 @@
 /Users/hyun/Developer/boj/1931/1931_cpp/main.cpp
 iostream
 -
-deque
+vector
 -
 algorithm
 -
