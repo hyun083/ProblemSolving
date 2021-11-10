@@ -12,15 +12,11 @@ let inputs = readLine()!.split(separator: " ").map{Int(String($0))!}
 let A = inputs[0]
 let B = inputs[1]
 let V = inputs[2]
-var sum = 0
-var cnt = 0
-while(true){
-    cnt += 1
-    sum += A
-    if(sum >= V){
-        break
-    }else{
-        sum -= B
-    }
+
+let res = (V-B)/(A-B)
+
+if((V-B)%(A-B) > 0){
+    print(res+1)
+}else{
+    print(res)
 }
-print(cnt)
