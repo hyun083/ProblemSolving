@@ -21,10 +21,6 @@ for idx in 0..<N{
     }
 }
 
-for m in map{
-    print(m)
-}
-
 let nx = [1,-1,0,0]
 let ny = [0,0,-1,1]
 
@@ -38,7 +34,7 @@ func bfs() -> Int{
         cnt += 1
         for _ in 1...q.count{
             let curr =  q.removeFirst()
-            for i in 0..<3{
+            for i in 0...3{
                 let X = curr[0] + nx[i]
                 let Y = curr[1] + ny[i]
                 if(X<0 || X>=N || Y<0 || Y>=M){
@@ -46,7 +42,7 @@ func bfs() -> Int{
                 }
                 
                 if(map[X][Y] == 1 && visited[X][Y]==false){
-                    print("X:\(X), Y:\(Y), cnt:\(cnt)")
+                    if(X == N-1 && Y == M-1){return cnt}
                     q.append([X,Y])
                     visited[X][Y] = true
                 }
