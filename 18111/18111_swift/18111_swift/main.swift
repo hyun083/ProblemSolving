@@ -13,44 +13,52 @@ let N = inputs[0]
 let M = inputs[1]
 let B = inputs[2]
 
-var base = Array(repeating:[Int](), count: N)
+var base = [Int:Int]()
 var numbers = Set<Int>()
 
-for n in 0..<N{
+for _ in 0..<N{
     let inputs = readLine()!.split(separator: " ").map{Int(String($0))!}
     for input in inputs{
-        base[n].append(input)
+        if base[input] == nil {
+            base[input] = 1
+        }else{
+            base[input]! += 1
+        }
         numbers.insert(input)
     }
 }
 
-var arr = [Int:Int]()
+var ans = [0,0]
 
-for num in numbers{
+for ground in numbers.min()!...numbers.max()!{
     var cnt = 0
-    var map = base
     var inven = B
-    for x in 0..<N{
-        for y in 0..<M{
-            if map[x][y] == num{ continue }
-            while map[x][y] != num{
-                if map[x][y] < num{
-                    inven -= 1
-                    map[x][y] += 1
-                    cnt += 1
-                }else if map[x][y] > num{
-                    map[x][y] -= 1
-                    inven += 1
-                    cnt += 2
-                }
-            }
-            
+    for m in base{
+        if m.key == ground{ continue }
+        if m.key < ground{
+            let dis = ground - m.key
+            inven -= dis*m.value
+            cnt += dis*m.value
+        }else if m.key > ground{
+            let dis = m.key - ground
+            inven += dis*m.value
+            cnt += 2*(dis*m.value)
         }
     }
     if inven >= 0{
-        arr[cnt]=num
+        if ans[0] == 0{
+            ans[0] = cnt
+            ans[1] = ground
+        }
+        if ans[0] > cnt{
+            ans[0] = cnt
+            ans[1] = ground
+        }
+        if ans[0] == cnt && ans[1] < ground{
+            ans[0] = cnt
+            ans[1] = ground
+        }
     }
 }
 
-let ans = arr.min(by: {$0.key < $1.key})!
-print(ans.key,arr[ans.key]!)
+print(ans[0],ans[1])
