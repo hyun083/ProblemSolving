@@ -8,8 +8,4 @@
 import Foundation
 
 let N = Int(readLine()!)!
-var ans = 1
-for n in 1...N{
-    ans *= n
-}
-print(ans)
+print(N/5)
