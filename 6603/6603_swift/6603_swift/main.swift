@@ -18,8 +18,9 @@ while true {
     S.sort(by: <)
     var arr = [String]()
     var ans = [String]()
+    var visited = Array(repeating: false, count: K)
     
-    func btk(cnt:Int){
+    func btk(numb:Int, cnt:Int){
         if cnt == 6{
             if arr.count == 6{
                 ans.append(arr.joined(separator: " "))
@@ -27,13 +28,17 @@ while true {
             return
         }
         
-        for i in 0..<K{
-            arr.append(String(S[i]))
-            btk(cnt: cnt+1)
-            arr.removeLast()
+        for i in numb..<K{
+            if visited[i]==false {
+                visited[i] = true
+                arr.append(String(S[i]))
+                btk(numb: i, cnt: cnt+1)
+                arr.removeLast()
+                visited[i] = false
+            }
         }
     }
-    btk(cnt: 0)
-    print(arr)
-    
+    btk(numb: 0, cnt: 0)
+    print(ans.joined(separator: "\n"))
+    print()
 }
