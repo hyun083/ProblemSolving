@@ -23,6 +23,7 @@ func check(level:Int) -> Bool{
 func btk(cnt:Int){
     if cnt == N{
         ans += 1
+        return
     }
     for i in 0..<N{
         arr[cnt] = i
@@ -34,3 +35,4 @@ func btk(cnt:Int){
 
 btk(cnt: 0)
 print(ans)
+
