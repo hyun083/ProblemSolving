@@ -2,32 +2,33 @@
 //  main.swift
 //  1463_swift
 //
-//  Created by Hyun on 2021/12/03.
+//  Created by Hyun on 2021/12/16.
 //
 
 import Foundation
 
 let N = Int(readLine()!)!
-let I = Int(readLine()!)!
-var map = Array(repeating: [Int](), count: N)
-var visited = Array(repeating: false, count: N)
 
-for _ in 1...I{
-    let node = readLine()!.split(separator: " ").map{Int(String($0))! - 1}
-    map[node[0]].append(node[1])
-    map[node[1]].append(node[0])
-}
+var dp = Array(repeating: -1, count: N+1)
 
-var cnt = 0
-func bfs(from node:Int) {
-    visited[node] = true
-    cnt += 1
-    for next in map[node]{
-        if(visited[next] == false){
-            bfs(from: next)
-        }
+func one(number:Int) -> Int{
+    if number == 1 {
+        return 0
     }
+    if dp[number] != -1 {
+        return dp[number]
+    }
+    
+    var temp = one(number: number - 1) + 1
+    
+    if number % 3 == 0 {
+        temp = min(temp, one(number: number/3) + 1)
+    }
+    if number % 2 == 0{
+        temp = min(temp, one(number: number/2) + 1)
+    }
+    dp[number] = temp
+    return temp
 }
+print(one(number: N))
 
-bfs(from: 0)
-print(cnt - 1)
