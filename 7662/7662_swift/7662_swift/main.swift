@@ -80,11 +80,13 @@ for i in 0..<T{
         }else{
             if ans[i].count >= 1{
                 if number == 1{
-                    ans[i].sort(by: <)
+                    let idx = ans[i].firstIndex(of: ans[i].max()!)
+                    ans[i].remove(at: idx!)
                 }else{
-                    ans[i].sort(by: >)
+                    let idx = ans[i].firstIndex(of: ans[i].min()!)
+                    ans[i].remove(at: idx!)
                 }
-                ans[i].removeLast()
+
             }else{
                 continue
             }
@@ -97,7 +99,7 @@ for i in 0..<T{
         print("EMPTY")
     }else{
         ans[i].sort()
-        print("\(ans[i].last!) \(ans[i].first!)")
+        print("\(ans[i].max()!) \(ans[i].min()!)")
     }
 }
 
