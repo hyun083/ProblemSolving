@@ -68,7 +68,6 @@ final class FileIO {
 let f = FileIO()
 let T = f.readInt()
 var ans = Array(repeating: [Int](), count: T)
-let out = 2147483648
 
 for i in 0..<T{
     let N = f.readInt()
@@ -78,66 +77,27 @@ for i in 0..<T{
         let number = f.readInt()
         if command == "I"{
             ans[i].append(number)
+            ans[i].sort(by: <)
         }else{
             if ans[i].count >= 1{
                 if number == 1{
-                    var max = -2147483649
-                    var idx = 0
-                    for k in 0..<ans[i].count{
-                        if ans[i][k] == out{
-                            continue
-                        }else if ans[i][k] > max{
-                            max = ans[i][k]
-                            idx = k
-                        }
-                    }
-                    ans[i][idx] = out
+                    ans[i].removeLast()
                 }else{
-                    var min = 2147483648
-                    var idx = 0
-                    for k in 0..<ans[i].count{
-                        if ans[i][k] == out{
-                            continue
-                        }else if ans[i][k] < min{
-                            min = ans[i][k]
-                            idx = k
-                        }
-                    }
-                    ans[i][idx] = out
+                    ans[i].removeFirst()
                 }
             }else{
                 continue
             }
         }
     }
+    
 }
 
-for i in 0..<T{
-    var max = -2147483649
-    var min = 2147483648
-    
-    for k in 0..<ans[i].count{
-        if ans[i][k] == out{
-            continue
-        }else if max < ans[i][k]{
-            max = ans[i][k]
-        }
-    }
-    
-    for k in 0..<ans[i].count{
-        if ans[i][k] == out{
-            continue
-        }else{
-            if min > ans[i][k]{
-                min = ans[i][k]
-            }
-        }
-    }
-    
-    if max == -2147483649 && min == 2147483648{
+for a in ans{
+    if a.isEmpty{
         print("EMPTY")
     }else{
-        print("\(max) \(min)")
+        print(a.max()!, a.min()!)
     }
 }
 
