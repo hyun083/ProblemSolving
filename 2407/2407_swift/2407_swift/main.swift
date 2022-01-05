@@ -55,5 +55,3 @@ func combination(n:Int, m:Int) -> String{
     }
 }
 print(combination(n: N, m: R))
-//print(dp)
-//print(stringAdd(numb1: "980", numb2: "98"))
