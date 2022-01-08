@@ -7,11 +7,5 @@
 
 import Foundation
 
-while(true){
-    let T = readLine()!.split(separator: " ").map{Int(String($0))!}
-    if T[0]==0 && T[1]==0{
-        break
-    }
-    
-}
+print("이것만")
 
