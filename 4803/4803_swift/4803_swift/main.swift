@@ -7,5 +7,4 @@
 
 import Foundation
 
-print("이것만")
 

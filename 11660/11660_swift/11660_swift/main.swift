@@ -7,25 +7,33 @@
 
 import Foundation
 
-let input = readLine()!.split(separator: " ").map{Int(String($0))!}
-var map = Array(repeating: [Int](), count: input[0])
-func sum(x1:Int, y1:Int, x2:Int, y2:Int) -> Int{
-    var sum = 0
-    for i in x1...x2{
-        for k in y1...y2{
-            sum += map[i][k]
-        }
-    }
-    return sum
-}
+let NM = readLine()!.split(separator: " ").map{Int(String($0))!}
+let N = NM[0]
+let M = NM[1]
+var res = ""
 
-for i in 0..<input[0]{
-    let arr = readLine()!.split(separator: " ").map{Int(String($0))!}
+var map = Array(repeating: Array(repeating: 0, count: N+1), count: N+1)
+var dp = map
+
+for i in 1...N{
+    var arr = [0]
+    arr += readLine()!.split(separator: " ").map{Int(String($0))!}
     map[i] = arr
 }
 
-for _ in 0..<input[1]{
-    let range = readLine()!.split(separator: " ").map{Int(String($0))!-1}
-    print(sum(x1: range[0], y1: range[1], x2: range[2], y2: range[3]))
+for i in 1...N{
+    for k in 1...N{
+        dp[i][k] = map[i][k] + dp[i-1][k] + dp[i][k-1] - dp[i-1][k-1]
+    }
 }
 
+for _ in 1...M{
+    let range = readLine()!.split(separator: " ").map{Int(String($0))!}
+    let x1 = range[0]
+    let y1 = range[1]
+    let x2 = range[2]
+    let y2 = range[3]
+    let ans = dp[x2][y2] - dp[x2][y1-1] - dp[x1-1][y2] + dp[x1-1][y1-1]
+    res += String(ans) + "\n"
+}
+print(res)
