@@ -7,21 +7,36 @@
 
 import Foundation
 
-var arr = [Int]()
+var preOrder = [Int]()
 
 while let input = readLine(){
-    arr.append(Int(input)!)
-}
-var tree = Array(repeating: <#T##_#>, count: <#T##Int#>)
-for i in 0..<arr.count{
-    
+    preOrder.append(Int(input)!)
 }
 
-func tree(p:Int, c:Int){
-    if p < c && {
-        
+var ans = [Int]()
+func postOrder(from start: Int, to end: Int){
+    if start >= end{
+        return
     }
+    if start == end-1{
+        ans.append(preOrder[start])
+        return
+    }
+    var next = start+1
+    while next < end{
+        if preOrder[start] < preOrder[next]{
+            break
+        }
+        next += 1
+    }
+    
+    postOrder(from: start+1, to: next)
+    postOrder(from: next, to: end)
+    ans.append(preOrder[start])
 }
 
-print(arr)
+postOrder(from: 0, to: preOrder.count)
+for a in ans{
+    print(a)
+}
 
