@@ -9,11 +9,21 @@ import Foundation
 
 var text = readLine()!
 var bomb = readLine()!
-while text.contains(bomb){
-    text = text.replacingOccurrences(of: bomb, with: "")
+
+var stack = ""
+for t in text{
+    stack += String(t)
+    if stack.count >= bomb.count{
+        if stack.last! == bomb.last!{
+            let startIdx = stack.index(stack.endIndex, offsetBy: -bomb.count)
+            if stack[startIdx..<stack.endIndex] == bomb{
+                stack = String(stack.dropLast(bomb.count))
+            }
+        }
+    }
 }
-if text == ""{
+if stack == ""{
     print("FRULA")
 }else{
-    print(text)
+    print(stack)
 }
