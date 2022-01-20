@@ -8,28 +8,38 @@
 import Foundation
 
 let n = Int(readLine()!)!
-var arr = Array(repeating: Array(repeating: " ", count: n*2-1), count: n)
 
-func printStar(num:Int, x:Int, y:Int){
-    if num==3{
-        arr[x][y] = "*"
-        arr[x+1][y-1] = "*"
-        arr[x+1][y+1] = "*"
-        for i in 0..<5{
-            arr[x+2][y-2+i] = "*"
+var tempStars = [String]()
+var stars = ["  *  "," * * ","*****"]
+var blank = "   "
+
+func printStars(size:Int){
+    if size == n{
+        for star in stars {
+            print(blank + star + blank)
         }
-        
-    }else{
-        let next = num/2
-        printStar(num: next, x: x, y: y)
-        printStar(num: next, x: x+next, y: y-next)
-        printStar(num: next, x: x+next, y: y+next)
+        for star in stars {
+            print(star + " " + star)
+        }
+        return
     }
+    
+    tempStars = stars
+    stars = []
+    for tempStar in tempStars {
+        stars.append(blank + tempStar + blank)
+    }
+    for tempStar in tempStars {
+        stars.append(tempStar + " " + tempStar)
+    }
+    blank += blank
+    printStars(size: 2*size)
 }
 
-printStar(num: n, x: 0, y: n-1)
-var ans = ""
-for a in arr{
-    ans += a.joined(separator: "") + "\n"
+if n==3{
+    for s in stars{
+        print(s)
+    }
+}else{
+    printStars(size: 6)
 }
-print(ans)
