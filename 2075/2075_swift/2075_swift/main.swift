@@ -10,9 +10,13 @@ import Foundation
 var arr = [Int]()
 let N = Int(readLine()!)!
 
-for _ in 1...N{
+for i in 0..<N{
     arr += readLine()!.split(separator: " ").map{Int(String($0))!}
+    if i > 0{
+        for _ in 0..<N{
+            let idx = arr.firstIndex(of: arr.min()!)!
+            arr.remove(at: idx)
+        }
+    }
 }
-arr.sort(by: >)
-print(arr[N-1])
-
+print(arr.min()!)
