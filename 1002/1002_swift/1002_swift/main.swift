@@ -19,24 +19,20 @@ for _ in 0..<N{
     let y2 = input[4]
     let r2 = input[5]
 
-    //좌표가 같은경우
-    if x1 == x2 && y1 == y2{
-        if r1 == r2{
-            print(-1)
+    let distance = pow((x2-x1), 2) + pow((y2-y1), 2)
+    
+    if distance == 0{
+        if pow(r1-r2,2) == 0{
+            print("-1")
         }else{
-            print(0)
+            print("0")
         }
+    }else if distance == pow(r1-r2, 2) || distance == pow(r1+r2, 2){
+        print("1")
+    }else if pow(r1-r2, 2) < distance && distance < pow(r1+r2, 2){
+        print("2")
     }else{
-        let distance = sqrt(Double(pow((x2-x1), 2) + pow((y2-y1), 2)))
-        if distance < Double(r1+r2){
-            print(2)
-        }else if distance == Double(r1+r2){
-            print(1)
-        }else if distance == Double(r1) || distance == Double(r2){
-            print(1)
-        }else{
-            print(0)
-        }
+        print("0")
     }
 }
 
