@@ -8,20 +8,29 @@
 import Foundation
 
 let input = readLine()!
+var number = ""
+var numbers = [Int]()
+var minusFlag = false
 
-if input.contains("-"){
-    let arr = input.split(separator: "-")
-    var temp = [Int]()
-    for a in arr{
-        if a.contains("+"){
-            temp += a.split(separator: "+").map{Int(String($0))! * -1}
+for text in input{
+    if text == "+" || text == "-"{
+        if minusFlag{
+            numbers.append(Int(number)! * -1)
         }else{
-            temp.append(Int(a)!)
+            numbers.append(Int(number)!)
         }
+        if text == "-"{
+            minusFlag = true
+        }
+    }else{
+        number.append(text)
+        continue
     }
-    print(temp.reduce(0, +))
-}else{
-    let arr = input.split(separator: "+").map{Int(String($0))!}
-    print(arr.reduce(0, +))
+    number = ""
 }
-
+if minusFlag{
+    numbers.append(Int(number)! * -1)
+}else{
+    numbers.append(Int(number)!)
+}
+print(numbers.reduce(0, +))
