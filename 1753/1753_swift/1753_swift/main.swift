@@ -131,11 +131,9 @@ public struct Heap<T> {
 
 extension Heap where T: Comparable {
     init() {
-        self.init(comparer: <)
+        self.init(comparer: >)
     }
 }
-
-
 
 struct Edge : Comparable{
     static func < (lhs:Edge, rhs:Edge) -> Bool{
@@ -148,40 +146,44 @@ struct Edge : Comparable{
 let file = FileIO()
 let V = file.readInt()
 let E = file.readInt()
-let K = file.readInt()-1
+let K = file.readInt()
 let inf = Int.max
 
-var D = Array(repeating: [(Int,Int)](), count: V)
+var D = Array(repeating: [(Int,Int)](), count: V+1)
+var dist = Array(repeating: inf, count: V+1)
 for _ in 1...E{
-    D[file.readInt()-1].append((file.readInt()-1,file.readInt()))
+    D[file.readInt()].append((file.readInt(),file.readInt()))
 }
 
-var dist = Array(repeating: inf, count: V)
-dist[K] = 0
-
-var pq:Heap = Heap<Edge>()
-pq.insert(Edge(cost:0, node:K))
-while !pq.isEmpty {
-    let curr = pq.delete()!
-    if dist[curr.node] < curr.cost{
-        continue
-    }
+func dij(_ K:Int){
+    dist[K] = 0
     
-    for next in D[curr.node]{
-        if curr.cost + next.1 < dist[next.0]{
-            dist[next.0] = curr.cost + next.1
-            pq.insert(Edge(cost: curr.cost + next.1, node: next.0))
+    var pq:Heap = Heap<Edge>()
+    pq.insert(Edge(cost:0, node:K))
+    
+    while !pq.isEmpty {
+        let curr = pq.delete()!
+        if dist[curr.node] < curr.cost{
+            continue
+        }
+        
+        for next in D[curr.node]{
+            if curr.cost + next.1 < dist[next.0]{
+                dist[next.0] = curr.cost + next.1
+                pq.insert(Edge(cost: curr.cost + next.1, node: next.0))
+            }
         }
     }
 }
 
+dij(K)
 var result = ""
-for d in dist{
-    if d == inf{
-        result += "INF\n"
+
+for i in 1...V{
+    if dist[i] == inf{
+        result.append("INF\n")
     }else{
-        result += "\(d)\n"
+        result.append("\(dist[i])\n")
     }
 }
 print(result)
-
