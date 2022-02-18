@@ -15,3 +15,4 @@ for i in 0..<N{
     S.append(A[i]*B[i])
 }
 print(S.reduce(0, +))
+
