@@ -17,6 +17,7 @@ public struct Lecture{
         self.start_time = start
         self.end_time = end
     }
+    
 }
 
 let N = Int(readLine()!)!
