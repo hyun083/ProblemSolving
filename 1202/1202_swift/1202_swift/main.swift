@@ -89,7 +89,7 @@ extension Heap where T: Comparable {
 
 struct Gem : Comparable {
     public static func < (lhs: Gem, rhs: Gem) -> Bool {
-        lhs.value < rhs.value
+        lhs.weight < rhs.weight
     }
     var weight:Int
     var value:Int
@@ -97,25 +97,33 @@ struct Gem : Comparable {
 }
 
 let NK = readLine()!.split(separator: " ").map{Int(String($0))!}
+let N = NK[0]
+let K = NK[1]
+
 var sum = 0
-var gem = Heap<Gem>(comparer: <)
+var gem = [Gem]()
 var bag = [Int]()
+var maxHeap = Heap<Int>(comparer: <)
 
 for _ in 1...NK[0]{
-    var g = readLine()!.split(separator: " ").map{Int(String($0))!}
-    gem.insert(Gem(weight: g[0], value: g[1]))
+    let g = readLine()!.split(separator: " ").map{Int(String($0))!}
+    gem.append(Gem(weight: g[0], value: g[1]))
 }
 for _ in 1...NK[1]{
     bag.append(Int(readLine()!)!)
 }
+gem.sort(by: <)
 bag.sort(by: <)
-print(gem)
-print(bag)
 
-while !gem.isEmpty{
-    if bag.isEmpty{
-        break
-    }else{
-        
+var idx = 0
+for i in 0..<K{
+    while idx<N && bag[i] >= gem[idx].weight{
+        maxHeap.insert(gem[idx].value)
+        idx += 1
+    }
+    if !maxHeap.isEmpty{
+        sum += maxHeap.delete()!
     }
 }
+print(sum)
+
