@@ -10,20 +10,16 @@ import Foundation
 let NM = readLine()!.split(separator: " ").map{Int(String($0))!}
 let N = NM[0]
 let M = NM[1]
-var result = [Int]()
+
+var pkg = 10001
+var ea = 10001
 for _ in 0..<M{
     let line = readLine()!.split(separator: " ").map{Int(String($0))!}
-    let pkg = line[0]
-    let single = line[1]
-    
-    if N > 6{
-        if N%6 > 0{
-            result.append(min(pkg*(N/6+1), single*N))
-        }else{
-            result.append(min(pkg*(N/6), single*N))
-        }
-    }else{
-        result.append(min(pkg, single*N))
+    if pkg > line[0]{
+        pkg = line[0]
+    }
+    if ea > line[1]{
+        ea = line[1]
     }
 }
-print(result.min()!)
+print(min((N/6+1)*pkg, min((N/6*pkg + N%6*ea), N*ea)))
