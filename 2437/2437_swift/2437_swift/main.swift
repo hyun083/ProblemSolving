@@ -12,3 +12,4 @@ let weight = readLine()!.split(separator: " ").map{Int(String($0))!}.sorted(by: 
 var numbers = Set<Int>()
 
 
+ 

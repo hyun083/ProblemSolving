@@ -7,7 +7,8 @@
 
 import Foundation
 
-let NM = readLine()!.split(separator: " ").map{String($0)}
-let N = String(NM[0].reversed())
-let M = String(NM[1].reversed())
-
+let NM = readLine()!.split(separator: " ").map{Int(String($0))!}
+let N = NM[0]
+let M = NM[1]
+print(N/M)
+print(N%M)
