@@ -40,3 +40,5 @@ while N != -1{
     N = numbers[N]
 }
 
+print(dp)
+print(numbers)
