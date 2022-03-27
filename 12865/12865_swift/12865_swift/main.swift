@@ -7,85 +7,30 @@
 
 import Foundation
 
-final class FileIO {
-    private let buffer:[UInt8]
-    private var index: Int = 0
+let NK = readLine()!.split(separator: " ").map{Int(String($0))!}
+let N = NK[0]   //물건갯수
+let K = NK[1]   //최대무게
+var dp = Array(repeating: Array(repeating: 0, count: K+1), count: N)
+var item = [(Int,Int)]()
 
-    init(fileHandle: FileHandle = FileHandle.standardInput) {
-        
-        buffer = Array(try! fileHandle.readToEnd()!)+[UInt8(0)] // 인덱스 범위 넘어가는 것 방지
-    }
-
-    @inline(__always) private func read() -> UInt8 {
-        defer { index += 1 }
-
-        return buffer[index]
-    }
-
-    @inline(__always) func readInt() -> Int {
-        var sum = 0
-        var now = read()
-        var isPositive = true
-
-        while now == 10
-                || now == 32 { now = read() } // 공백과 줄바꿈 무시
-        if now == 45 { isPositive.toggle(); now = read() } // 음수 처리
-        while now >= 48, now <= 57 {
-            sum = sum * 10 + Int(now-48)
-            now = read()
-        }
-
-        return sum * (isPositive ? 1:-1)
-    }
-
-    @inline(__always) func readString() -> String {
-        var now = read()
-
-        while now == 10 || now == 32 { now = read() } // 공백과 줄바꿈 무시
-        let beginIndex = index-1
-
-        while now != 10,
-              now != 32,
-              now != 0 { now = read() }
-
-        return String(bytes: Array(buffer[beginIndex..<(index-1)]), encoding: .ascii)!
-    }
-
-    @inline(__always) func readByteSequenceWithoutSpaceAndLineFeed() -> [UInt8] {
-        var now = read()
-
-        while now == 10 || now == 32 { now = read() } // 공백과 줄바꿈 무시
-        let beginIndex = index-1
-
-        while now != 10,
-              now != 32,
-              now != 0 { now = read() }
-
-        return Array(buffer[beginIndex..<(index-1)])
-    }
-}
-let file = FileIO()
-
-let N = file.readInt()
-let K = file.readInt()
-
-var W = [0]
-var V = [0]
 for _ in 0..<N{
-    W.append(file.readInt())
-    V.append(file.readInt())
+    let WV = readLine()!.split(separator: " ").map{Int(String($0))!}
+    item.append((WV[0],WV[1]))
 }
 
-func knapsack(n:Int, k:Int, w:[Int], v:[Int]) -> Int{
-    if n<=0 || k<=0{
-        return 0
-    }
-    if w[n] > k{
-        return knapsack(n: n-1, k: k, w: w, v: v)
-    }else{
-        let lhs = knapsack(n: n-1, k: k, w: w, v: v)
-        let rhs = knapsack(n: n-1, k: k-w[n], w: w, v: v)
-        return max(lhs, v[n] + rhs)
+for i in 0..<N{
+    for k in 1...K{
+        if i == 0{
+            if k >= item[i].0{
+                dp[i][k] = item[i].1
+            }
+        }else{
+            if k < item[i].0{
+                dp[i][k] = dp[i-1][k]
+            }else{
+                dp[i][k] = max(dp[i-1][k], dp[i-1][k-item[i].0] + item[i].1)
+            }
+        }
     }
 }
-print(knapsack(n: N, k: K, w: W, v: V))
+print(dp[N-1][K])

@@ -8,7 +8,7 @@
 import Foundation
 
 let N = Int(readLine()!)!
-var arr = Array(repeating: 15, count: 15)
+var arr = Array(repeating: -1, count: 15)
 var ans = 0
 
 func check(level:Int) -> Bool{
@@ -35,4 +35,3 @@ func btk(cnt:Int){
 
 btk(cnt: 0)
 print(ans)
-
