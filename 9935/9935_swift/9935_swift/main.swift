@@ -9,21 +9,16 @@ import Foundation
 
 var text = readLine()!
 var bomb = readLine()!
+let bombLen = bomb.count
+let triger = String(bomb.last!)
+var temp = [String]()
 
-var stack = ""
-for t in text{
-    stack += String(t)
-    if stack.count >= bomb.count{
-        if stack.last! == bomb.last!{
-            let startIdx = stack.index(stack.endIndex, offsetBy: -bomb.count)
-            if stack[startIdx..<stack.endIndex] == bomb{
-                stack = String(stack.dropLast(bomb.count))
-            }
+for t in text.map({String($0)}){
+    temp.append(t)
+    if temp.count >= bombLen && temp.last! == triger{
+        if temp[(temp.count-bombLen)...].joined() == bomb{
+            for _ in 0..<bombLen{ temp.removeLast() }
         }
     }
 }
-if stack == ""{
-    print("FRULA")
-}else{
-    print(stack)
-}
+print(temp.isEmpty ? "FRULA":temp.joined())
