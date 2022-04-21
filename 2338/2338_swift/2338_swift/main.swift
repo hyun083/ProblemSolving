@@ -28,43 +28,43 @@ func plus(num1:[Int], num2:[Int]) -> [Int]{
     if carry != 0 {
         result.append(carry)
     }
-    
     return Array(result.reversed())
 }
+
 func minus(num1:[Int], num2:[Int]) -> [String]{
     if num1 == [0]{
         return ["-"+num2.map{String($0)}.joined()]
     }
     var result = [String]()
-    var num1 = Array(num1.reversed())
-    var num2 = Array(num2.reversed())
+    var flag = false
+    var numA = Array(num1.reversed())
+    var numB = Array(num2.reversed())
     
-    if num1.count > num2.count{
-        for _ in 0..<num1.count-num2.count{
-            num2.append(0)
-        }
-    }else{
-        for _ in 0..<num2.count-num1.count{
-            num1.append(0)
+    if numA.count < numB.count{
+        swap(&numA, &numB)
+        flag = true
+    }else if numA.count == numB.count{
+        if num1.map({String($0)}).joined() < num2.map({String($0)}).joined(){
+            swap(&numA, &numB)
+            flag = true
         }
     }
-    for i in 0..<num2.count{
-        var number = num1[i]-num2[i]
+    for _ in 0..<numA.count-numB.count{
+        numB.append(0)
+    }
+    for i in 0..<numB.count{
+        var number = numA[i]-numB[i]
         if number < 0 {
-            if i == num2.count-1{
-                result.append(String(abs(number)))
-                result.append("-")
-            }else{
-                number += 10
-                result.append(String(number))
-                num1[i+1] -= 1
-            }
-        }else{
-            result.append(String(number))
+            number += 10
+            numA[i+1] -= 1
         }
+        result.append(String(number))
     }
-    if result.count>1 && result.last! == "0"{
+    while result.count>1 && result.last! == "0"{
         result.removeLast()
+    }
+    if flag{
+        result.append("-")
     }
     return Array(result.reversed())
 }
@@ -136,4 +136,3 @@ if A.contains("-") && B.contains("-"){
     print(minus(num1: tempA, num2: tempB).joined())
     print(multi(num1: tempA, num2: tempB).joined())
 }
-
