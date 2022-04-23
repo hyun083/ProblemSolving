@@ -7,5 +7,5 @@
 
 import Foundation
 
-print("Hello, World!")
+print("ㄱ".utf8)
 
