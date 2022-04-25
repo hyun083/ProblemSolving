@@ -8,18 +8,24 @@
 //import Foundation
 var cnt = 0
 for _ in 0..<Int(readLine()!)!{
-    var arr = Array(repeating: -1, count: 26)
-    let word = readLine()!
     var flag = true
-    for (idx,value) in word.utf8.enumerated(){
-        print(idx,value)
-        if arr[Int(value-97)] == -1{
-            arr[Int(value-97)] = idx
+    let word = readLine()!.map{String($0)}
+    var stack = [String]()
+    for i in 0..<word.count{
+        if i == 0{
+            stack.append(word[i])
         }else{
-            if idx - arr[Int(value-97)] > 1{
-                flag = false
-                break
+            if stack.last! != word[i]{
+                stack.append(word[i])
             }
+        }
+    }
+    var temp = [String:Bool]()
+    for stack in stack {
+        if temp[stack] == nil{
+            temp[stack] = true
+        }else if temp[stack]!{
+            flag = false
         }
     }
     if flag{
