@@ -136,3 +136,4 @@ if A.contains("-") && B.contains("-"){
     print(minus(num1: tempA, num2: tempB).joined())
     print(multi(num1: tempA, num2: tempB).joined())
 }
+
