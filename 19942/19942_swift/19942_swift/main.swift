@@ -49,5 +49,4 @@ func dfs(idx:Int){
     
 }
 for i in 0..<n{
-    
 }
