@@ -6,47 +6,44 @@
 //
 
 import Foundation
-
-//struct Food:Comparable,Sequence{
-//    static func < (lhs: Food, rhs: Food) -> Bool {
-//        return lhs.protein<rhs.protein && lhs.vitamin<rhs.vitamin && lhs.carbohydrate<rhs.carbohydrate && lhs.fat<rhs.fat
-//    }
-//    static func <= (lhs: Food, rhs: Food) -> Bool {
-//        return lhs.protein<=rhs.protein && lhs.vitamin<=rhs.vitamin && lhs.carbohydrate<=rhs.carbohydrate && lhs.fat<=rhs.fat
-//    }
-//
-//    let protein:Int
-//    let fat:Int
-//    let carbohydrate:Int
-//    let vitamin:Int
-//    init(p:Int, f:Int, c:Int, v:Int){
-//        protein=p
-//        fat=f
-//        carbohydrate=c
-//        vitamin=v
-//    }
-//}
-
 let n = Int(readLine()!)!
 let target = readLine()!.split(separator: " ").map{Int(String($0))!}
 var foods = [[Int]]()
-var prices = [Int]()
+var sum = [0,0,0,0,0]
+var total = [String:Int]()
 
-var price = 0
-var temp = [0,0,0,0]
 
 for _ in 0..<n{
-    let line = readLine()!.split(separator: " ").map{Int(String($0))!}
-    let food = [line[0],line[1],line[2],line[3]]
-    prices.append(line[4])
-    foods.append(food)
+    foods.append(readLine()!.split(separator: " ").map{Int(String($0))!})
 }
 
-func dfs(idx:Int){
-    if idx == n-1{
-        return
+func btk(idx:Int,str:String){
+    if idx == n{ return }
+    if sum[0]+foods[idx][0]>=target[0] && sum[1]+foods[idx][1]>=target[1] && sum[2]+foods[idx][2]>=target[2] && sum[3]+foods[idx][3]>=target[3]{
+        total[str+"\(idx+1) "] = sum[4]+foods[idx][4]
     }
+    btk(idx: idx+1,str:str)
     
+    for i in 0..<5{
+        sum[i] += foods[idx][i]
+    }
+    btk(idx: idx+1,str: str+"\(idx+1) ")
+    
+    for i in 0..<5{
+        sum[i] -= foods[idx][i]
+    }
 }
-for i in 0..<n{
+btk(idx: 0, str:"")
+if total.isEmpty{
+    print(-1)
+}else{
+    let result = total.sorted(by: {
+        if $0.value == $1.value{
+            return $0.key < $1.key
+        }else{
+            return $0.value < $1.value
+        }
+    }).first
+    print(result!.value)
+    print(result!.key)
 }
