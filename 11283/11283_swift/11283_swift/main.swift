@@ -5,7 +5,7 @@
 //  Created by Hyun on 2022/04/22.
 //
 
-import Foundation
+//import Foundation
 
-print("ㄱ".utf8)
-
+var ch = readLine()!
+print(UnicodeScalar(ch)!.value - 44031)
