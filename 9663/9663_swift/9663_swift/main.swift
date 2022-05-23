@@ -7,31 +7,31 @@
 
 import Foundation
 
-let N = Int(readLine()!)!
-var arr = Array(repeating: -1, count: 15)
-var ans = 0
+let N = Int8(readLine()!)!
+var arr = Array(repeating: Int8(-1), count: 15)
+var ans = Int(0)
 
-func check(level:Int) -> Bool{
+func check(level:Int8) -> Bool{
     for i in 0..<level{
-        if arr[i] == arr[level] || level - i == abs(arr[level] - arr[i]){
+        if arr[Int(i)] == arr[Int(level)] || level - i == abs(arr[Int(level)] - arr[Int(i)]){
             return false
         }
     }
     return true
 }
 
-func btk(cnt:Int){
+func btk(cnt:Int8){
     if cnt == N{
         ans += 1
         return
     }
     for i in 0..<N{
-        arr[cnt] = i
+        arr[Int(cnt)] = i
         if check(level: cnt){
             btk(cnt: cnt+1)
         }
     }
 }
 
-btk(cnt: 0)
+btk(cnt: Int8(0))
 print(ans)
