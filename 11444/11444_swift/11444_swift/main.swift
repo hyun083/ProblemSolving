@@ -7,9 +7,9 @@
 
 import Foundation
 
-let N = Int(readLine()!)! % 1000000007
+let N = Int(readLine()!)!%1000000007
 
-var arr = Array(repeating: -1, count: (N%1000000007)+1)
+var arr = Array(repeating: -1, count: N+1)
 
 func fibonacci(num:Int) -> Int{
     if num%1000000007 == 0{
