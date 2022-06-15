@@ -31,7 +31,6 @@ var result = 0
 for u in 0..<n{
     var cnt = 0
     for v in 0..<n{
-        if u==v{continue}
         if arr[u][v]{cnt += 1}
     }
     result = max(result, cnt)
