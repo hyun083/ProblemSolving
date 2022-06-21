@@ -9,7 +9,7 @@ import Foundation
 
 let g = Int(readLine()!)!
 let p = Int(readLine()!)!
-var arr = [Int](0..<g)
+var arr = [Int](0...g)
 func root(Of n:Int) -> Int{
     if arr[n] == n{
         return n
@@ -18,15 +18,20 @@ func root(Of n:Int) -> Int{
     return arr[n]
 }
 func union(a:Int, b:Int){
-    arr[root(Of: a)] = root(Of: b)
+    let rootOfA = root(Of: a)
+    let rootOfB = root(Of: b)
+    if rootOfA == rootOfB{return}
+    arr[root(Of: b)] = root(Of: a)
 }
-
-for i in 1...p{
-    let plane = Int(readLine()!)!-1
-    if root(Of: 0) <= plane{
-        union(a: 0, b: root(Of: 0)+1)
+var ans = 0
+for _ in 0..<p{
+    let plane = Int(readLine()!)!
+    if root(Of: plane) != 0{
+        ans += 1
+        union(a: root(Of: plane)-1, b: root(Of: plane))
     }else{
-        print(i)
         break
     }
 }
+
+print(ans)
