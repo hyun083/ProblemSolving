@@ -15,6 +15,7 @@ while let nm = readLine(){
     let n = nm[0]
     let m = nm[1]
     var arr = [Int](0..<n)
+    var chk = Array(repeating: 0, count: n)
 
     func root(Of n:Int)->Int{
         if arr[n] == n{return n}
@@ -35,26 +36,25 @@ while let nm = readLine(){
         let ra = root(Of: ab[0])
         let rb = root(Of: ab[1])
         if ra == rb{
-            arr[ra] = -1
+            chk[ra] = -500
         }else{
-            if ra<0 || rb<0{
-                arr[ra] = -1
-                arr[rb] = -1
-                continue
+            if chk[ra] == -500 || chk[rb] == -500{
+                chk[ra] = -500
+                chk[rb] = -500
             }
             union(a: ra, b: rb)
         }
     }
-
-    var list = Set<Int>()
+    var T = 0
     for i in 0..<n{
-        if root(Of: i) < 0{
-            continue
-        }
-        list.insert(root(Of: i))
+        chk[root(Of: i)] += 1
     }
-    let T = list.count
-    
+    for i in 0..<n{
+        if chk[i] > 0{
+            T += 1
+        }
+    }
+
     if T == 0{
         print("Case \(C): No trees.")
     }else if T==1{
@@ -63,5 +63,4 @@ while let nm = readLine(){
         print("Case \(C): A forest of \(T) trees.")
     }
     C += 1
-    print(arr)
 }
