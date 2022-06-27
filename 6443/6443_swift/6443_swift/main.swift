@@ -67,16 +67,14 @@ final class FileIO {
 let fio = FileIO()
 let T = fio.readInt()
 for _ in 0..<T{
-    let arr = fio.readString().map{String($0)}.sorted(by: <)
+    let arr = fio.readString().map{String($0)}
     let n = arr.count
     var visited = Array(repeating: false, count: n)
-    var ans = [String]()
+    var ans = Set<String>()
     var str = ""
     func btk(cnt:Int ,curr:Int){
         if cnt == n{
-            if !ans.contains(str){
-                ans.append(str)
-            }
+            ans.insert(str)
             return
         }
         for i in 0..<n{
@@ -90,6 +88,7 @@ for _ in 0..<T{
         }
     }
     btk(cnt: 0, curr: 0)
-    print(ans.joined(separator: "\n"))
+    let temp = ans.sorted(by: <).joined(separator: "\n")
+    print(temp)
 }
 
