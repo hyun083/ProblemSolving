@@ -8,28 +8,18 @@
 import Foundation
 
 let n = Int(readLine()!)!
-var ans = [Int]()
-var res = 0
-var numbers = [Int](1...n)
-var stack = [Int]()
+var res = [String]()
+var stack = [String]()
+var numbers = ["0","1","2","3","4","5","6","7","8","9","10"]
 var visited = Array(repeating: false, count: n+1)
+var ans = [String]()
 
-func btk(cnt:Int){
+func btk(cnt:Int, limit:Int, prev:Int){
     if cnt == n{
-        ans.append(res)
+        
         return
     }
-    for i in 1...n{
-        if !visited[i]{
-            visited[i] = true
-            res *= 10
-            res += i
-            btk(cnt: cnt+1)
-            res -= 1
-            res /= 10
-            visited[i] = false
-        }
-    }
+    
 }
-btk(cnt: 0)
-print(ans)
+btk(cnt: 0, limit: 0, prev: 0)
+
