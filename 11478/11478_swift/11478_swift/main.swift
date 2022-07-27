@@ -20,4 +20,3 @@ for i in 0..<n{
     temp = ""
 }
 print(ans.count)
-
