@@ -11,5 +11,3 @@ let arr = readLine()!.map{String($0)}
 var stack = [String]()
 var ans = 0
 
-
-
