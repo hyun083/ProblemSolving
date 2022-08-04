@@ -13,7 +13,6 @@ let k = line[1]-1
 var arr = Array(repeating: true, count: n+1)
 var ans = [Int]()
 
-
 for i in 2...n{
     for i in stride(from: i, through: n, by: +i){
         if arr[i]{

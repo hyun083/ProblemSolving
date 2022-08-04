@@ -8,6 +8,7 @@
 import Foundation
 
 struct Country:Equatable{
+    let number:Int
     let gold:Int
     let silver:Int
     let bronze:Int
@@ -26,12 +27,12 @@ var countries = [Country]()
 
 let nk = readLine()!.split(separator: " ").map{Int(String($0))!}
 let n = nk[0]
-let k = nk[1]-1
-var rank = 0
+let k = nk[1]
+var rank = 2
 
 for _ in 0..<n{
     let line = readLine()!.split(separator: " ").map{Int(String($0))!}
-    countries.append(Country(gold: line[1], silver: line[2], bronze: line[3], rank: 0))
+    countries.append(Country(number: line[0], gold: line[1], silver: line[2], bronze: line[3], rank: 1))
 }
 
 countries.sort(by: {
@@ -48,10 +49,16 @@ countries.sort(by: {
 
 for i in 1..<n{
     if check(c1: countries[i-1], c2: countries[i]){
-        countries[i].rank = rank
+        countries[i].rank = countries[i-1].rank
     }else{
-        rank = i-1
-        countries[i].rank = i-1
+        countries[i].rank = rank
+    }
+    rank += 1
+}
+for country in countries {
+    if country.number == k{
+        print(country.rank)
+        break
     }
 }
-print(countries)
+
