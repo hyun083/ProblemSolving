@@ -10,27 +10,14 @@ import Foundation
 let n = Int(readLine()!)!
 var ans = 0
 
-for i in 1...9{
-    ans += 1
-}
-print(ans)
-ans = 0
-for i in 10...99{
-    ans += 1
-}
-print(ans)
-ans = 0
-for i in 100...999{
-    ans += 1
-}
-print(ans)
-ans = 0
-for i in 1000...9999{
-    ans += 1
-}
-print(ans)
+var cnt = 1
+var flag = 1
 
-100/10{
-    
+for number in 1...n{
+    if number == flag*10{
+        flag *= 10
+        cnt += 1
+    }
+    ans += cnt
 }
-
+print(ans)
