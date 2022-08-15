@@ -8,8 +8,8 @@
 import Foundation
 
 let cr = readLine()!.split(separator: " ").map{Int(String($0))!}
-var r = cr[1] //6
-var c = cr[0] //7
+var r = cr[1] 
+var c = cr[0]
 let max = c*r
 let target = Int(readLine()!)!
 var map = Array(repeating: Array(repeating: 0, count: c), count: r)
