@@ -8,27 +8,12 @@
 import Foundation
 
 let N = Int(readLine()!)!
-
-var dp = Array(repeating: -1, count: N+1)
-
-func one(number:Int) -> Int{
-    if number == 1 {
-        return 0
+var dp = Array(repeating: 0, count: N+1)
+if N>1{
+    for i in 2...N{
+        dp[i] = dp[i-1]+1
+        if i%3==0{dp[i] = min(dp[i], dp[i/3]+1)}
+        if i%2==0{dp[i] = min(dp[i], dp[i/2]+1)}
     }
-    if dp[number] != -1 {
-        return dp[number]
-    }
-    
-    var temp = one(number: number - 1) + 1
-    
-    if number % 3 == 0 {
-        temp = min(temp, one(number: number/3) + 1)
-    }
-    if number % 2 == 0{
-        temp = min(temp, one(number: number/2) + 1)
-    }
-    dp[number] = temp
-    return temp
 }
-print(one(number: N))
-
+print(dp[N])
