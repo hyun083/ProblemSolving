@@ -10,29 +10,23 @@ import Foundation
 let nk = readLine()!.split(separator: " ").map{Int($0)!}
 let n = nk[0]
 var k = nk[1]
-var cnt = 0
-var ans = Int.max
-var numbers = Array(repeating: false, count: 100001)
 
+var dp = Array(repeating:10001, count:10001)
+dp[0] = 0
+var coins = [Int]()
 for _ in 0..<n{
-    let number = Int(readLine()!)!
-    numbers[number] = true
-    if k%number==0{
-        ans = min(ans, k/number)
-    }
+    let coin = Int(readLine()!)!
+    if coin <= 10000{ coins.append(coin) }
 }
+coins = coins.sorted(by: <)
 
-for coin in stride(from: 100000, through: 0, by: -1){
-    if numbers[coin] && coin<=k{
-        cnt += k/coin
-        k %= coin
+for coin in coins{
+    for i in coin...10000{
+        dp[i] = min(dp[i], dp[i-coin]+1)
     }
 }
-if k==0{
-    ans = min(ans, cnt)
-}
-if ans==Int.max{
+if dp[k] == 10001{
     print(-1)
 }else{
-    print(ans)
+    print(dp[k])
 }
