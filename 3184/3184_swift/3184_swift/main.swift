@@ -65,14 +65,14 @@ func bfs(x:Int, y:Int){
     }
     print(x,y,o,v)
 }
-for visited in visited{
-    print(visited)
-}
 for i in 0..<r{
     for k in 0..<c{
         if !visited[i][k]{
             visited[i][k] = true
             bfs(x: i, y: k)
+            for visited in visited{
+                print(visited)
+            }
         }
     }
 }
