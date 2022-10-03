@@ -46,7 +46,7 @@ func bfs(x:Int, y:Int){
             
             let dx = [-1,1,0,0]
             let dy = [0,0,-1,1]
-            for i in 0..<3{
+            for i in 0..<4{
                 let nx = x+dx[i]
                 let ny = y+dy[i]
                 if nx<0 || nx>=r || ny<0 || ny>=c || map[nx][ny]=="#"{ continue }
@@ -58,26 +58,16 @@ func bfs(x:Int, y:Int){
         }
     }
     if o>v{
-        print("???",x,y,o,v)
         ans[0] += o
     }else if o<=v{
         ans[1] += v
     }
-    print(x,y,o,v)
 }
 for i in 0..<r{
     for k in 0..<c{
         if !visited[i][k]{
-            visited[i][k] = true
             bfs(x: i, y: k)
-            for visited in visited{
-                print(visited)
-            }
         }
     }
 }
-print(ans)
-//o양 v늑대
-for map in map{
-    print(map)
-}
+print(ans[0],ans[1])
