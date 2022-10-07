@@ -44,20 +44,18 @@ func bfs(){
                 let nx = x + dx[i]
                 let ny = y + dy[i]
                 if nx<0 || nx>=n || ny<0 || ny>=m {continue}
-                if wall == 0{
-                    if map[nx][ny]==0 && !visited[nx][ny][0]{
-                        visited[nx][ny][0] = true
-                        q.append([nx,ny,0,cnt+1])
-                    }
-                    if map[nx][ny]==1 && !visited[nx][ny][1]{
-                        visited[nx][ny][1] = true
-                        q.append([nx,ny,1,cnt+1])
-                    }
-                }else{
-                    if map[nx][ny]==0 && !visited[nx][ny][1]{
-                        visited[nx][ny][1] = true
-                        q.append([nx,ny,wall,cnt+1])
-                    }
+                
+                if wall==0 && map[nx][ny]==0 && !visited[nx][ny][0]{
+                    visited[nx][ny][0] = true
+                    q.append([nx,ny,0,cnt+1])
+                }
+                if wall==0 && map[nx][ny]==1 && !visited[nx][ny][1]{
+                    visited[nx][ny][1] = true
+                    q.append([nx,ny,1,cnt+1])
+                }
+                if wall==1 && map[nx][ny]==0 && !visited[nx][ny][1]{
+                    visited[nx][ny][1] = true
+                    q.append([nx,ny,wall,cnt+1])
                 }
             }
         }
