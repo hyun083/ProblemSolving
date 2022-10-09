@@ -1,18 +1,15 @@
 import Foundation
 
-let nmk = readLine()!.split(separator: " ").map{Int($0)!}
+let nmk = readLine()!.split(separator: " ").map{Int(String($0))!}
 let n = nmk[0]
 let m = nmk[1]
 let k = nmk[2]
 
-var map = Array(repeating: Array(repeating: 0, count: m), count: n)
+var map = Array(repeating: [Int](), count: n)
 var visited = Array(repeating: Array(repeating: -1, count: m), count: n)
 
 for i in 0..<n{
-    let input = readLine()!.map{Int(String($0))!}
-    for k in 0..<m{
-        map[i][k] = input[k]
-    }
+    map[i] = readLine()!.map{Int(String($0))!}
 }
 var ans = -1
 func bfs(){
@@ -40,8 +37,12 @@ func bfs(){
                 let nx = x+dx[i]
                 let ny = y+dy[i]
                 if nx<0 || nx>=n || ny<0 || ny>=m {continue}
+                if visited[nx][ny]>=0 && visited[nx][ny]<=wall {continue}
                 if wall<k && map[nx][ny]==1{    //벽을 만남
-                    if visited[nx][ny]<0 || visited[nx][ny] > wall+1{   //한번도 방문하지 않은 벽, 또는 더 적게부순상태로 지나갈수있다면
+                    if visited[nx][ny]<0 {  //한번도 부순적이 없는 벽이라면
+                        visited[nx][ny] = wall+1
+                        q.append([nx,ny,wall+1,cnt+1])
+                    }else if visited[nx][ny]>=0 && visited[nx][ny] > wall+1{   //더 적게부순상태로 지나갈수있다면
                         visited[nx][ny] = wall+1
                         q.append([nx,ny,wall+1,cnt+1])
                     }
