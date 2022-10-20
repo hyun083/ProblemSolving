@@ -33,15 +33,27 @@ for _ in 0..<tc{
     }
     
     func warp(from curr:Int, to:Int, time:Int){
-        if curr == to{
-            
-        }
-        for next in map[n]{
+        for next in map[curr]{
+            if next[0] == to{
+                ans[to] = min(ans[to], time+next[1])
+            }
             if !visited[next[0]]{
-                visited[next[0]] = true
                 warp(from: next[0], to: to, time: time+next[1])
+                visited[next[0]] = true
             }
         }
-        
+    }
+    for i in 0..<n{
+        visited = Array(repeating: false, count: n)
+        warp(from: i, to: i, time: 0)
+    }
+    for m in map{
+        print(m)
+    }
+    print(ans)
+    if ans.min()! < 0 {
+        print("YES")
+    }else{
+        print("NO")
     }
 }
