@@ -13,7 +13,7 @@ var ans = Int(0)
 
 func check(level:Int) -> Bool{
     for i in 0..<level{
-        if arr[Int(i)] == arr[Int(level)] || level - i == abs(arr[Int(level)] - arr[Int(i)]){
+        if arr[Int(i)] == arr[Int(level)] || level - i == max(arr[Int(level)] - arr[Int(i)], arr[i]-arr[level]){
             return false
         }
     }
