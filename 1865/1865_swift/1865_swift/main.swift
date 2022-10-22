@@ -14,8 +14,8 @@ for _ in 0..<tc{
     let m = nmw[1]
     let w = nmw[2]
     var map = Array(repeating: [[Int]](), count: n)
-    var visited = Array(repeating: false, count: n)
-    var ans = Array(repeating: 10001, count: n)
+    var ans = Array(repeating: 0, count: n)
+    
     for _ in 0..<m{
         let set = readLine()!.split(separator: " ").map{Int(String($0))!}
         let s = set[0]-1
@@ -32,28 +32,24 @@ for _ in 0..<tc{
         map[s].append([e,t])
     }
     
-    func warp(from curr:Int, to:Int, time:Int){
-        for next in map[curr]{
-            if next[0] == to{
-                ans[to] = min(ans[to], time+next[1])
-            }
-            if !visited[next[0]]{
-                warp(from: next[0], to: to, time: time+next[1])
-                visited[next[0]] = true
+    var minusFlag = false
+    
+    for loop in 0..<n{
+        for curr in 0..<n{
+            for info in map[curr]{
+                let next = info[0]
+                let time = info[1]
+                if ans[next] > ans[curr]+time{
+                    ans[next] = ans[curr]+time
+                    if loop == n-1{ minusFlag = true}
+                }
             }
         }
     }
-    for i in 0..<n{
-        visited = Array(repeating: false, count: n)
-        warp(from: i, to: i, time: 0)
-    }
-    for m in map{
-        print(m)
-    }
-    print(ans)
-    if ans.min()! < 0 {
+    if minusFlag{
         print("YES")
     }else{
         print("NO")
     }
 }
+
