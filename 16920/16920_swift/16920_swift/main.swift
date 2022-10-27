@@ -16,7 +16,6 @@ let s = [0]+readLine()!.split(separator: " ").map{Int(String($0))!}
 var map = Array(repeating: Array(repeating: 0, count: m), count: n)
 var visited = Array(repeating: Array(repeating: false, count: m), count: n)
 var ans = [0]+Array(repeating: 0, count: p)
-var valiable = 0
 var q = Array(repeating: [[Int]](), count: p+1)
 
 for i in 0..<n{
@@ -26,7 +25,6 @@ for i in 0..<n{
             visited[i][k] = true
             map[i][k] = -1
         }else if input[k]=="."{
-            valiable += 1
             map[i][k] = 0
         }else{
             let number = Int(input[k])!
@@ -56,7 +54,6 @@ func bfs(number:Int){
                 if nx<0 || nx>=n || ny<0 || ny>=m || map[nx][ny]<0{ continue }
                 if !visited[nx][ny] && map[nx][ny]==0{
                     ans[number] += 1
-                    valiable -= 1
                     visited[nx][ny] = true
                     map[nx][ny] = number
                     q[number].append([nx,ny])
@@ -69,7 +66,6 @@ func bfs(number:Int){
 while true{
     var cnt = 0
     for number in 1...p{
-        if valiable <= 0{ break }
         if !q[number].isEmpty{
             bfs(number: number)
         }
