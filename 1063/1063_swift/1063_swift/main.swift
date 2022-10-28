@@ -10,88 +10,37 @@ import Foundation
 let line = readLine()!.split(separator: " ").map{String($0)}
 let line0 = line[0].map{$0}
 let line1 = line[1].map{$0}
-var king = [UInt8]()
-var dol = [UInt8]()
-
-king.append(line0[0].asciiValue!)
-king.append(UInt8(String(line0[1]))!)
-
-dol.append(line1[0].asciiValue!)
-dol.append(UInt8(String(line1[1]))!)
-
 let n = Int(line[2])!
 
+var king = [Int(line0[0].asciiValue!),Int(String(line0[1]))!]
+var dol = [Int(line1[0].asciiValue!),Int(String(line1[1]))!]
+
+let cmd = ["R":0,"L":1,"B":2,"T":3,"RT":4,"LT":5,"RB":6,"LB":7]
+let dx = [1,-1,0,0,1,-1,1,-1]
+let dy = [0,0,-1,1,1,1,-1,-1]
+
 for _ in 0..<n{
-    let cmd = readLine()!
-    switch cmd{
-    case "R":
-        if king[0] < 72{
-            king[0] += 1
+    let line = readLine()!
+    let idx = cmd[line]!
+    
+    var knx = king[0]+dx[idx]
+    var kny = king[1]+dy[idx]
+    
+    if 65<=knx && knx<=72 && 1<=kny && kny<=8{
+        if knx==dol[0] && kny==dol[1]{
+            let dnx = dol[0]+dx[idx]
+            let dny = dol[1]+dy[idx]
+            if 65<=dnx && dnx<=72 && 1<=dny && dny<=8{
+                dol[0] = dnx
+                dol[1] = dny
+            }else{
+                knx = king[0]
+                kny = king[1]
+            }
         }
-        if dol[0] < 72{
-            dol[0] += 1
-        }
-    case "L":
-        if king[0] > 65{
-            king[0] -= 1
-        }
-        if dol[0] > 65{
-            dol[0] -= 1
-        }
-    case "B":
-        if king[1] > 1{
-            king[1] -= 1
-        }
-        if dol[1] > 1{
-            dol[1] -= 1
-        }
-    case "T":
-        if king[1] < 8{
-            king[1] += 1
-        }
-        if dol[1] < 8{
-            dol[1] += 1
-        }
-    case "RT":
-        if (king[1] < 8 && king[0] < 72){
-            king[0] += 1
-            king[1] += 1
-        }
-        if (dol[0] < 72 && dol[1] < 8){
-            dol[0] += 1
-            dol[1] += 1
-        }
-    case "LT":
-        if (king[0] > 65 && king[1] < 8){
-            king[0] -= 1
-            king[1] += 1
-        }
-        if (dol[0] > 65 && dol[1] < 8){
-            dol[0] -= 1
-            dol[1] += 1
-        }
-    case "RB":
-        if (king[0] < 72 && king[1] > 1){
-            king[0] += 1
-            king[1] -= 1
-        }
-        if (dol[0] < 72 && dol[1] > 1){
-            dol[0] += 1
-            dol[1] -= 1
-        }
-    case "LB":
-        if (king[0] > 65 && king[1] > 1){
-            king[0] -= 1
-            king[1] -= 1
-        }
-        if (dol[0] > 65 && dol[1] > 1){
-            dol[0] -= 1
-            dol[1] -= 1
-        }
-    default:
-        continue
+        king[0] = knx
+        king[1] = kny
     }
 }
-print(String(UnicodeScalar(king[0]))+String(king[1]))
-print(String(UnicodeScalar(dol[0]))+String(dol[1]))
-
+print(Character(UnicodeScalar(king[0])!),terminator: String(king[1])+"\n")
+print(Character(UnicodeScalar(dol[0])!),terminator: String(dol[1]))
