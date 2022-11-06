@@ -78,29 +78,31 @@ for _ in 0..<m{
     map[u].append(v)
 }
 
-func dfs(from curr:Int)->Int{
+var cnt = 1
+func dfs(from curr:Int){
     visited[curr] = true
-    var cnt = 1
     for next in map[curr]{
         if !visited[next]{
-            cnt += dfs(from: next)
+            dfs(from: next)
+            cnt += 1
         }
     }
-    return cnt
 }
 
-var ans = Array(repeating: 0, count: n)
-var target = 0
+//var ans = Array(repeating: 0, count: n)
+var myMax = 0
+var output = [String]()
 for u in 0..<n{
+    cnt = 1
     visited = Array(repeating: false, count: n)
-    ans[u] = dfs(from: u)
-    target = max(target, ans[u])
-}
-var output = ""
-for i in 0..<n{
-    if ans[i] == target{
-        output += "\(i+1) "
+    dfs(from: u)
+    
+    if myMax == cnt{
+        output.append("\(u+1)")
+    }else if myMax < cnt{
+        myMax = cnt
+        output = [String]()
+        output.append("\(u+1)")
     }
 }
-print(output)
-
+print(output.joined(separator: " "))
