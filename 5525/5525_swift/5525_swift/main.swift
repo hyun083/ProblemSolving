@@ -4,26 +4,27 @@
 //
 //  Created by Hyun on 2022/01/21.
 //
-
 import Foundation
 
-let N = Int(readLine()!)!
-let M = Int(readLine()!)!
-let S = readLine()!
+let n = Int(readLine()!)!
+let m = Int(readLine()!)!
+let s = readLine()!.map{$0}
 
-var compare = "IOI"
-for _ in 1..<N{
-    compare += "OI"
-}
+var ans = 0
+var compare = 0
+var idx = 0
 
-var cnt = 0
-for idx in S.indices{
-    let temp = S[idx..<S.endIndex]
-    if temp.count < compare.count{
-        break
+while idx < m-2 {
+    if String(s[idx...idx+2]) == "IOI" {
+        compare += 1
+        if compare == n {
+            compare -= 1
+            ans += 1
+        }
+        idx += 1
+    } else {
+        compare = 0
     }
-    if temp.starts(with: compare){
-        cnt += 1
-    }
+    idx += 1
 }
-print(cnt)
+print(ans)

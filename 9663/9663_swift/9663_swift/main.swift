@@ -8,30 +8,32 @@
 import Foundation
 
 let N = Int(readLine()!)!
-var arr = Array(repeating: Int(-1), count: 15)
-var ans = Int(0)
+var cols = Array(repeating: false, count: N)
+var diagonal1 = Array(repeating: false, count: 2*N-1)
+var diagoanl2 =  Array(repeating: false, count: 2*N-1)
+var ans = 0
 
-func check(level:Int) -> Bool{
-    for i in 0..<level{
-        if arr[Int(i)] == arr[Int(level)] || level - i == max(arr[Int(level)] - arr[Int(i)], arr[i]-arr[level]){
-            return false
-        }
+func check(i:Int, k:Int) -> Bool{
+    if cols[k] || diagonal1[i+k] || diagoanl2[i-k+N-1]{
+        return false
+    }else{
+        return true
     }
-    return true
 }
 
-func btk(cnt:Int){
-    if cnt == N{
+func btk(row:Int){
+    if row == N{
         ans += 1
         return
     }
-    for i in 0..<N{
-        arr[Int(cnt)] = i
-        if check(level: cnt){
-            btk(cnt: cnt+1)
+    for col in 0..<N{
+        if check(i: row, k: col){
+            cols[col] = true; diagonal1[row+col] = true; diagoanl2[row-col+N-1] = true
+            btk(row: row+1)
+            cols[col] = false; diagonal1[row+col] = false; diagoanl2[row-col+N-1] = false
         }
     }
 }
 
-btk(cnt: Int(0))
+btk(row: 0)
 print(ans)

@@ -7,22 +7,26 @@
 
 import Foundation
 
-let N = Int(readLine()!)!%1000000007
+let n = readLine()!
+let number = NSDecimalNumber(string: n)
+var arr = Dictionary<NSDecimalNumber,Int>()
+arr[0] = 0
+arr[1] = 1
 
-var arr = Array(repeating: -1, count: N+1)
-
-func fibonacci(num:Int) -> Int{
-    if num%1000000007 == 0{
-        return 0
+func fibonacci(n:NSDecimalNumber) -> Int{
+    let check = n.stringValue.map{Int(String($0))!}.last!%2==0 ? true : false
+    if arr[n] == nil{
+        if check{
+            let fnM1 = fibonacci(n: n.dividing(by: 2).subtracting(1))
+            let fn = fibonacci(n: n.dividing(by: 2))
+            arr[n] = (fn*(2*fnM1+fn))%1000000007
+        }else{
+            let fnP1 = fibonacci(n: n.adding(1).dividing(by: 2))
+            let fn = fibonacci(n: n.adding(1).dividing(by: 2).subtracting(1))
+            arr[n] = ((fn*fn)+(fnP1*fnP1))%1000000007
+        }
     }
-    if num%1000000007 == 1{
-        return 1
-    }
-    if arr[num%1000000007] != -1{
-        return arr[num%1000000007]
-    }
-    arr[num%1000000007] = (fibonacci(num: num-1)%1000000007 + fibonacci(num: num-2)%10000000007)%1000000007
-    return arr[num%1000000007]
+    return arr[n]!
 }
+print(fibonacci(n: number))
 
-print(fibonacci(num: N))
