@@ -10,8 +10,8 @@ import Foundation
 let line = readLine()!.split(separator: " ").map{Int(String($0))!}
 var a = line[0]
 let p = line[1]
+var idx = 0
 var ans = [Int:Int]()
-var cnt = 0
 
 func makeNumber(from a:Int) -> Int{
     var result = 0
@@ -30,10 +30,10 @@ func makeNumber(from a:Int) -> Int{
     
     return result
 }
+
 while ans[a] == nil{
-    ans[a] = cnt
-    cnt += 1
-    print(a,ans[a]!)
+    ans[a] = idx
+    idx += 1
     a = makeNumber(from: a)
 }
 print(ans[a]!)

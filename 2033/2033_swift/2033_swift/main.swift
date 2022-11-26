@@ -7,23 +7,16 @@
 
 import Foundation
 
-var number = Array(readLine()!.map{Int(String($0))!}.reversed())
-if number.count >= 2{
-    for i in 0..<number.count{
-        if i == number.count-1{
-            if number[i] >= 10{
-                number.append(number[i]/10)
-                number[i]%=10
-                break
-            }
-        }else{
-            if number[i] >= 5{
-                number[i] = 0
-                number[i+1] += 1
-            }
-        }
+var number = Int(readLine()!)!
+var detent = 10
+
+while number > detent{
+    let mod = number%detent
+    if mod >= detent/2{
+        number = (number/detent)*detent+detent
+    }else{
+        number -= mod
     }
+    detent *= 10
 }
-for number in Array(number.reversed()){
-    print(number,terminator: "")
-}
+print(number)
