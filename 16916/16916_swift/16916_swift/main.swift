@@ -8,20 +8,16 @@
 import Foundation
 
 let s = readLine()!.map{String($0)}
-let p = readLine()!
+let p = readLine()!.map{String($0)}
 var ans = 0
 
 var start = 0
 var end = p.count
 
-for _ in 0...s.count-p.count{
-    if s[start..<end].joined() == p{
+for i in 0..<s.count-p.count{
+    if Array(s[i..<i+p.count]) == p{
         ans = 1
         break
-    }else{
-        ans = 0
     }
-    start += 1
-    end += 1
 }
 print(ans)
