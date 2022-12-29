@@ -1,8 +1,8 @@
 //
 //  main.swift
-//  1325_swift
+//  25587_swift
 //
-//  Created by Hyun on 2022/09/07.
+//  Created by Hyun on 2022/12/28.
 //
 //by rhyno
 //final class FileIO {
@@ -69,42 +69,54 @@ let nm = readLine()!.split(separator: " ").map{Int($0)!}
 let n = nm[0]
 let m = nm[1]
 
-var map = Array(repeating: [Int](), count: n)
+var arr = Array(repeating: (-1,0,0), count: n)
+var flag = false
+var cnt = 0
+
+let size = readLine()!.split(separator: " ").map{Int($0)!}
+for i in 0..<n{
+    arr[i].1 = size[i]
+}
+
+let rain = readLine()!.split(separator: " ").map{Int($0)!}
+for i in 0..<n{
+    arr[i].2 = rain[i]
+}
+
+for i in 0..<n{
+    if arr[i].1 < arr[i].2{ cnt -= arr[i].0}
+}
+
+func root(of a:Int)->Int{
+    if arr[a].0 < 0 {return a}
+    arr[a].0 = root(of: arr[a].0)
+    return arr[a].0
+}
+
+func union(a:Int, b:Int){
+    let rootA = root(of: a)
+    let rootB = root(of: b)
+    if rootA == rootB {return}
+    if arr[rootA].1 < arr[rootA].2{ cnt += arr[rootA].0 }
+    if arr[rootB].1 < arr[rootB].2{ cnt += arr[rootB].0 }
+    
+    arr[rootA].0 += arr[rootB].0
+    arr[rootB].0 = rootA
+    arr[rootA].1 += arr[rootB].1
+    arr[rootA].2 += arr[rootB].2
+    
+    if arr[rootA].1 < arr[rootA].2{ cnt -= arr[rootA].0 }
+}
 
 for _ in 0..<m{
     let info = readLine()!.split(separator: " ").map{Int($0)!}
-    let v = info[0] - 1
-    let u = info[1] - 1
-    map[u].append(v)
-}
-
-func bfs(from a:Int) -> Int{
-    var visited = Array(repeating: false, count: n)
-    var q = [a]
-    var idx = 0
-    visited[a] = true
-    while idx < q.count{
-        let curr = q[idx]
-        for next in map[curr]{
-            if !visited[next]{
-                visited[next] = true
-                q.append(next)
-            }
-        }
-        idx += 1
-    }
-    return idx
-}
-
-var myMax = 0
-var output = [String]()
-for u in 0..<n{
-    let cnt = bfs(from: u)
-    if myMax < cnt{
-        myMax = cnt
-        output = ["\(u+1)"]
-    }else if myMax == cnt{
-        output.append("\(u+1)")
+    let c = info[0]
+    if c == 2{
+        print(cnt)
+    }else{
+        let u = info[1]-1
+        let v = info[2]-1
+        union(a: u, b: v)
     }
 }
-print(output.joined(separator: " "))
+
