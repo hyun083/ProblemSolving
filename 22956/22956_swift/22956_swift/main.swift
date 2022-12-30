@@ -16,26 +16,46 @@ var arr = Array(repeating: (-1,false,0), count: n*m)
 var map = Array(repeating: [Int](), count: n)
 
 for i in 0..<n{ map[i] = readLine()!.split(separator: " ").map{Int($0)!} }
+for i in 0..<n*m{ arr[i].0 = i }
 
 func root(of a:Int)->Int{
-    if arr[a].0  {return a}
+    if arr[a].0 == a {return a}
     arr[a].0 = root(of: arr[a].0)
     return arr[a].0
 }
+
 func union(a:Int, b:Int){
     let ax = a/m; let ay = a%m
     let bx = b/m; let by = b%m
-
+    
+    let rootA = root(of: a)
+    let rootB = root(of: b)
+    
+    if rootA == rootB{
+        if map[ax][ay] < map[bx][by]{
+            arr[b].0 = a
+        }else if map[ax][ay]==map[bx][by]{
+            if arr[a].2 <= arr[b].2{
+                arr[b].0 = a
+            }else{
+                arr[a].0 = rootB
+            }
+        }else{
+            arr[a].0 = rootB
+        }
+        return
+    }
+    
     if map[ax][ay] < map[bx][by]{
-        arr[b].0 = a
+        arr[b].0 = rootA
     }else if map[ax][ay]==map[bx][by]{
         if arr[a].2 <= arr[b].2{
-            arr[b].0 = a
+            arr[b].0 = rootA
         }else{
-            arr[a].0 = b
+            arr[a].0 = rootB
         }
     }else{
-        arr[a].0 = b
+        arr[a].0 = rootB
     }
     
 }
@@ -48,18 +68,11 @@ for _ in 0..<q{
     let x = info[0]-1
     let y = info[1]-1
     let rain = info[2]
+    
     let curr = (x*m)+y
     map[x][y] -= rain
+    arr[curr].1 = true
     arr[curr].2 = time
-    time += 1
-    
-    if arr[curr].1{
-        for i in 0..<n*m{
-            root(of: i)
-        }
-        arr[curr].0 = curr
-        arr[curr].1 = true
-    }
     
     for i in 0..<4{
         let nx = x+dx[i]
@@ -67,11 +80,12 @@ for _ in 0..<q{
         let next = (nx*m)+ny
         if nx<0 || nx>=n || ny<0 || ny>=m{ continue }
         if arr[next].1{
-            union(a: root(of: curr), b: root(of: next))
+            union(a: curr, b: next)
         }
     }
     
     let ans = root(of: curr)
     let tx = ans/m; let ty = ans%m
     print(tx+1,ty+1)
+    time += 1
 }
