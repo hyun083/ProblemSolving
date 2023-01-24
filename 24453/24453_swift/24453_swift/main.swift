@@ -11,22 +11,39 @@ let nm = readLine()!.split(separator: " ").map{Int($0)!}
 let n = nm[0]
 let m = nm[1]
 
-var arr = Array(repeating: false, count: 20000001)
+var arr = Array(repeating: false, count: n+1)
 let errors = readLine()!.split(separator: " ").map{Int($0)!}
 for err in errors{
     arr[err] = true
 }
 
 let xy = readLine()!.split(separator: " ").map{Int($0)!}
-let detent = max(xy[0], xy[1])
+let x = xy[0]
+let y = xy[1]
 
 var head = 1
 var tail = 1
-var cnt = 0
-var ans = Int.max
+
 var errCnt = 0
+var ans = 0
 
-
-while tail<n{
+while tail<n+1{
+    if arr[tail]{
+        if errCnt >= y{
+            if arr[head]{
+                errCnt -= 1
+            }
+            head += 1
+        }else{
+            errCnt += 1
+            tail += 1
+        }
+    }else{
+        tail += 1
+    }
     
+    if x<=tail-head && y<=errCnt{
+        ans = max(ans, m-errCnt)
+    }
 }
+print(ans)
