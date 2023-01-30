@@ -8,7 +8,7 @@
 import Foundation
 
 let n = Int(readLine()!)!
-var time = 24
+var time = 1000001
 var tasks = [(Int,Int)]()
 
 for _ in 0..<n{
@@ -24,8 +24,4 @@ for task in tasks {
         time -= task.0
     }
 }
-if time < 0{
-    print(-1)
-}else{
-    print(time)
-}
+print(time<0 ? -1:time)
