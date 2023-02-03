@@ -13,13 +13,16 @@ let n = cn[1]
 
 var chicken = [Int]()
 var cow = [(Int,Int)]()
+var lastTime = 0
 
 for _ in 0..<c{
     chicken.append(Int(readLine()!)!)
+    lastTime = max(lastTime, chicken.last!)
 }
 
 for _ in 0..<n{
     let info = readLine()!.split(separator: " ").map{Int($0)!}
+    if lastTime < info[0] { continue }
     cow.append((info[0],info[1]))
 }
 
@@ -33,11 +36,11 @@ cow.sort(by: {
 })
 
 var cnt = 0
-var visited = Array(repeating: false, count: n)
+var visited = Array(repeating: false, count: cow.count)
 
 for t in 0..<c{
     let time = chicken[t]
-    for k in 0..<n{
+    for k in 0..<cow.count{
         if !visited[k]{
             let s = cow[k].0
             let e = cow[k].1
