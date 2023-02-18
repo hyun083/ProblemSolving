@@ -8,33 +8,29 @@
 import Foundation
 
 let T = Int(readLine()!)!
+var ans = [String]()
 
-for _ in 1...T{
-    var flag = false
+for _ in 0..<T{
+    var flag = true
     let N = Int(readLine()!)!
-    var arr = [String]()
-    for _ in 1...N{
-        arr.append(readLine()!)
+    var numbers = [String]()
+    for _ in 0..<N{
+        numbers.append(readLine()!)
     }
-    arr.sort(by: <)
+    numbers.sort(by: {$0<$1})
     
-    for i in 0..<arr.count{
-        if flag{
+    for i in 0..<N-1{
+        let pre = numbers[i]
+        let post = numbers[i+1]
+        if post.starts(with: pre){
+            flag = false
             break
-        }else{
-            for k in i+1..<arr.count{
-                if arr[k].starts(with: arr[i]){
-                    flag = true
-                    break
-                }
-            }
         }
     }
     if flag{
-        print("NO")
+        ans.append("YES")
     }else{
-        print("YES")
+        ans.append("NO")
     }
 }
-
-
+print(ans.joined(separator: "\n"))
