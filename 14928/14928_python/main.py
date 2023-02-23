@@ -20,3 +20,6 @@ if __name__ == '__main__':
     # b = int(input())
     # c = int(input())
     # print((b - c) // a)
+
+    arr = []
+    print(arr)
