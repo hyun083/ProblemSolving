@@ -1,3 +1,0 @@
-/Users/hyun/Developer/boj/1926/1926_cpp/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/hyun/Developer/boj/1926/1926_cpp/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/hyun/Developer/boj/1926/1926_cpp/cmake-build-debug/CMakeFiles/1926_cpp.dir

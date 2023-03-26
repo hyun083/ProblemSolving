@@ -1,3 +1,0 @@
-/Users/hyun/Developer/CLionProject/boj/2840/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/hyun/Developer/CLionProject/boj/2840/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/hyun/Developer/CLionProject/boj/2840/cmake-build-debug/CMakeFiles/2840.dir
