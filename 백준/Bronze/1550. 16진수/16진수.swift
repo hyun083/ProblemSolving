@@ -1,0 +1,1 @@
+print(String(Int(readLine()!,radix: 16)!,radix: 10))
