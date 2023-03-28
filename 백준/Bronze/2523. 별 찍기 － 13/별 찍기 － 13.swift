@@ -1,10 +1,3 @@
-//
-//  main.swift
-//  2523
-//
-//  Created by Hyun on 2023/03/28.
-//
-
 import Foundation
 
 let N = Int(readLine()!)!
