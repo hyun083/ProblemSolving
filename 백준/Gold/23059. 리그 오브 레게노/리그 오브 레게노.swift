@@ -2,7 +2,6 @@ import Foundation
 
 let N = Int(readLine()!)!
 
-var KEYS = Set<String>()
 var arr = Dictionary<String,[String]>()
 var income = Dictionary<String,Int>()
 
@@ -10,8 +9,6 @@ for _ in 0..<N{
     let info = readLine()!.split(separator: " ").map{String($0)}
     let A = info[0]
     let B = info[1]
-    KEYS.insert(A)
-    KEYS.insert(B)
     
     if arr[A] == nil{
         arr[A] = [B]
@@ -61,8 +58,4 @@ while !q.isEmpty{
     q.sort(by: {$0<$1})
 }
 
-if ans.count < KEYS.count{
-    print(-1)
-}else{
-    print(ans.joined(separator: "\n"))
-}
+print(ans.count<income.keys.count ? -1:ans.joined(separator: "\n"))
