@@ -1,17 +1,17 @@
 import Foundation
 
 let T = Int(readLine()!)!
+var ans = [String]()
 
 for _ in 0..<T{
     let line = readLine()!.split(separator:" ").map{Int($0)!}
     let S = line[0]
     let T = line[1]
-    var ans = Int.max
-    var flag = false
+    var result = Int.max
     
     func bfs(from A:Int, to B:Int, cnt:Int){
         if A == B{
-            ans = min(ans, cnt)
+            result = min(result, cnt)
             return
         }
         
@@ -22,5 +22,6 @@ for _ in 0..<T{
     }
     
     bfs(from: S, to: T, cnt: 0)
-    print(ans)
+    ans.append("\(result)")
 }
+print(ans.joined(separator: "\n"))
