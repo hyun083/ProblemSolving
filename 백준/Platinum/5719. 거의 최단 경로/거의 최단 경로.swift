@@ -121,6 +121,7 @@ while true{
             visited[curr] = true
             
             for next in arr[curr]{
+                if next.node<0 { continue }
                 if visited[next.node] { continue }
                 
                 let newCost = cost+next.cost
@@ -158,14 +159,6 @@ while true{
     visited[D] = true
     dfs(from: D, cost: 0)
     
-    arr = Array(repeating: [(node:Int, cost:Int)](), count: N)
-    for node in 0..<N{
-        for next in rev[node]{
-            if next.node < 0 { continue }
-            arr[next.node].append((node,next.cost))
-        }
-    }
-    
-    let ans = dij(from: S, arr: arr)[D]
+    let ans = dij(from: D, arr: rev)[S]
     print(ans==INF ? -1:ans)
 }
