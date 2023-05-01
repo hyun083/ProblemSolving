@@ -5,7 +5,7 @@ let N = NM[0]
 let M = NM[1]
 
 var arr = Array(repeating: [(node:Int, cost:Int)](), count: N)
-var ans = Array(repeating: Array(repeating: -1, count: N), count: N)
+var ans = Array(repeating: Array(repeating: "-", count: N), count: N)
 
 for _ in 0..<M{
     let line = readLine()!.split(separator: " ").map{Int($0)!}
@@ -27,7 +27,7 @@ func dijk(from:Int){
     for next in arr[from]{
         res[next.node] = next.cost
         q.append((next.node,next.cost,next.node))
-        ans[from][next.node] = next.node+1
+        ans[from][next.node] = "\(next.node+1)"
     }
     
     while !q.isEmpty{
@@ -42,7 +42,7 @@ func dijk(from:Int){
             if res[next.node] > newCost{
                 res[next.node] = newCost
                 q.append((next.node,newCost,curr.origin))
-                ans[from][next.node] = curr.origin+1
+                ans[from][next.node] = "\(curr.origin+1)"
             }
         }
     }
@@ -52,9 +52,6 @@ for i in 0..<N{
     dijk(from: i)
 }
 
-for i in 0..<N{
-    for k in 0..<N{
-        print(ans[i][k] == -1 ? "-" : ans[i][k],terminator: " ")
-    }
-    print()
+for ans in ans{
+    print(ans.joined(separator: " "),terminator: "\n")
 }
