@@ -11,46 +11,35 @@ for _ in 0..<N{
 }
 
 var slope = [[(num:Int,cnt:Int)]]()
-for numbers in arr{
-    var tmp = [(num:Int, cnt:Int)]()
-    var curr = numbers[0]
+func info(of arr:[Int]) -> [(num:Int, cnt:Int)]{
+    var result = [(num:Int, cnt:Int)]()
+    var curr = arr[0]
     var cnt = 1
     
     for i in 1..<N{
-        if curr == numbers[i]{
+        if curr == arr[i]{
             cnt += 1
         }else{
-            tmp.append((curr,cnt))
-            curr = numbers[i]
+            result.append((curr,cnt))
+            curr = arr[i]
             cnt = 1
         }
     }
-    tmp.append((curr,cnt))
-    
-    slope.append(tmp)
+    result.append((curr,cnt))
+    return result
 }
 
 for i in 0..<N{
-    var numbers = [Int]()
+    var horizontal = [Int]()
+    var vertical = [Int]()
+    
     for k in 0..<N{
-        numbers.append(arr[k][i])
+        vertical.append(arr[k][i])
+        horizontal.append(arr[i][k])
     }
     
-    var tmp = [(num:Int, cnt:Int)]()
-    var curr = numbers[0]
-    var cnt = 1
-    
-    for i in 1..<N{
-        if curr == numbers[i]{
-            cnt += 1
-        }else{
-            tmp.append((curr,cnt))
-            curr = numbers[i]
-            cnt = 1
-        }
-    }
-    tmp.append((curr,cnt))
-    slope.append(tmp)
+    slope.append(info(of: horizontal))
+    slope.append(info(of: vertical))
 }
 
 var ans = 0
@@ -59,41 +48,27 @@ for slope in slope{
     var sloped = Array(repeating: false, count: slope.count)
     
     for i in 0..<slope.count-1{
-        if abs(slope[i].num - slope[i+1].num) > 1{
-            flag = false
-            break
-        }else{
+        if abs(slope[i].num - slope[i+1].num) == 1{
             if slope[i].num < slope[i+1].num{
-                if sloped[i]{
-                    if slope[i].cnt < L*2{
-                        flag = false
-                        break
-                    }
-                }else{
-                    if slope[i].cnt < L{
-                        flag = false
-                        break
-                    }
+                if sloped[i] && slope[i].cnt >= L*2 {
+                    continue
+                }else if !sloped[i] && slope[i].cnt >= L{
                     sloped[i] = true
+                    continue
                 }
-            }else if slope[i].num > slope[i+1].num{
-                if sloped[i+1]{
-                    if slope[i+1].cnt < L*2{
-                        flag = false
-                        break
-                    }
-                }else{
-                    if slope[i+1].cnt < L{
-                        flag = false
-                        break
-                    }
+            }else{
+                if sloped[i+1] && slope[i+1].cnt >= L*2 {
+                    continue
+                }else if !sloped[i+1] && slope[i+1].cnt >= L{
                     sloped[i+1] = true
+                    continue
                 }
             }
         }
+        
+        flag = false
+        break
     }
-    if flag {
-        ans += 1
-    }
+    if flag { ans += 1 }
 }
 print(ans)
