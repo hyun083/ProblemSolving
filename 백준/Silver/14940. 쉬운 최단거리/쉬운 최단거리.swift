@@ -38,7 +38,7 @@ let M = fio.readInt()
 
 var ans = Array(repeating: Array(repeating: Int.max, count: M), count: N)
 var arr = Array(repeating: Array(repeating: 0, count: M), count: N)
-var visited = Array(repeating: Array(repeating: false, count: M), count: N)
+//var visited = Array(repeating: Array(repeating: false, count: M), count: N)
 var q = [(x:Int,y:Int,cost:Int)]()
 
 for i in 0..<N{
@@ -47,7 +47,6 @@ for i in 0..<N{
         if arr[i][k] == 2{
             q.append((i,k,0))
             ans[i][k] = 0
-            visited[i][k] = true
         }else if arr[i][k] == 0{
             ans[i][k] = 0
         }
@@ -69,9 +68,7 @@ func bfs(){
             let ny = y+dy[i]
             
             if nx<0 || nx>=N || ny<0 || ny>=M { continue }
-            if visited[nx][ny] || arr[nx][ny]==0{ continue }
-            if ans[nx][ny]>curr.cost+1{
-                visited[nx][ny] = true
+            if ans[nx][ny] > curr.cost+1{
                 ans[nx][ny] = curr.cost+1
                 q.append((nx,ny,ans[nx][ny]))
             }
