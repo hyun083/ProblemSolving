@@ -5,22 +5,16 @@ let N = NM[0]
 let M = NM[1]
 
 var arr = Array(repeating: Array(repeating: "", count: M), count: N)
-var redVisited = Array(repeating: Array(repeating: false, count: M), count: N)
-var blueVisited = Array(repeating: Array(repeating: false, count: M), count: N)
+var dest = (x:Int(),y:Int())
 var RED = (x:Int(),y:Int())
 var BLUE = (x:Int(),y:Int())
 var CNT = 0
-var dest = (x:Int(),y:Int())
 
 for i in 0..<N{
     let info = readLine()!.map{String($0)}
     for k in 0..<M{
         arr[i][k] = info[k]
         switch arr[i][k]{
-        case "#":
-            redVisited[i][k] = true
-            blueVisited[i][k] = true
-            break
         case "O":
             dest.x = i
             dest.y = k
@@ -47,8 +41,8 @@ let dy = [0,0,-1,1]
 var q = [(red:(x:Int,y:Int), blue:(x:Int,y:Int), cnt:Int)]()
 q.append((RED,BLUE,0))
 
-var idx = 0
 func bfs(){
+    var idx = 0
     while idx < q.count{
         let curr = q[idx]
         let red = curr.red
@@ -83,6 +77,7 @@ func bfs(){
                 bMove += 1
                 if arr[nbx][nby] == "O"{ break }
             }
+            
             if arr[nbx][nby]=="O"{ continue }
             if arr[nrx][nry]=="O"{
                 RED = (nrx,nry)
@@ -111,8 +106,4 @@ func bfs(){
 }
 
 bfs()
-if CNT > 10 || BLUE==dest{
-    print(-1)
-}else{
-    print(CNT)
-}
+print(CNT>10||BLUE==dest ? -1:CNT)
