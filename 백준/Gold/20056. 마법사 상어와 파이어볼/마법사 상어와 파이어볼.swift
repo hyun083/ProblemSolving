@@ -87,8 +87,4 @@ func bfs(){
     }
 }
 bfs()
-var ans = 0
-for info in q{
-    ans += info.m
-}
-print(ans)
+print(q.reduce(0, {$0 + $1.m}))
