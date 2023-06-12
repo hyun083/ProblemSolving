@@ -9,12 +9,10 @@ for _ in 0..<N{
     var cnt = 1
     
     while !stack.isEmpty && stack.last!.height <= currHeight{
-        if stack.last!.height == currHeight{
-            ans += stack.last!.cnt
-            cnt += stack.last!.cnt
-        }else{
-            ans += stack.last!.cnt
-        }
+        let top = stack.last!
+        
+        cnt += top.height==currHeight ? top.cnt : 0
+        ans += top.cnt
         stack.removeLast()
     }
     
