@@ -1,30 +1,26 @@
 import Foundation
 
 let info = readLine()!.split(separator: " ").map{Int($0)!}
-var arr = Array(repeating: Array(repeating: 0, count: 3), count: 3)
+var arr = [[Int]]()
 
 let R = info[0]-1
 let C = info[1]-1
 let K = info[2]
 
-for i in 0..<3{
+for _ in 0..<3{
     let num = readLine()!.split(separator: " ").map{Int($0)!}
-    for k in 0..<3{
-        arr[i][k] = num[k]
-    }
+    arr.append(num)
 }
 
 var ans = 0
-
 while ans<100{
-    if arr.count>R && arr[0].count>C{
-        if arr[R][C] == K{ break }
-    }
-    ans += 1
-    
     let r = arr.count
     let c = arr[0].count
-
+    
+    if r>R && c>C{
+        if arr[R][C] == K{ break }
+    }
+    
     if r >= c{
         var tmp = Array(repeating: [Int](), count: r)
         var length = 0
@@ -92,7 +88,9 @@ while ans<100{
         }
         arr = res
     }
+    ans += 1
 }
+
 if arr.count>R && arr[0].count>C{
     print(arr[R][C]==K ? ans:-1)
 }else{
