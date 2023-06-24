@@ -1,26 +1,29 @@
 import Foundation
 
+var ans = 0
 let N = Int(readLine()!)!
 let I = Int(readLine()!)!
-var map = Array(repeating: [Int](), count: N)
+var arr = Array(repeating: [Int](), count: N)
 var visited = Array(repeating: false, count: N)
 
-for _ in 1...I{
-    let node = readLine()!.split(separator: " ").map{Int(String($0))! - 1}
-    map[node[0]].append(node[1])
-    map[node[1]].append(node[0])
+for _ in 0..<I{
+    let info = readLine()!.split(separator: " ").map{Int($0)!-1}
+    let u = info[0]
+    let v = info[1]
+    arr[u].append(v)
+    arr[v].append(u)
 }
 
-var cnt = 0
-func bfs(from node:Int) {
+func dfs(from node:Int){
     visited[node] = true
-    cnt += 1
-    for next in map[node]{
-        if(visited[next] == false){
-            bfs(from: next)
+    ans += 1
+    
+    for next in arr[node]{
+        if !visited[next]{
+            dfs(from: next)
         }
     }
 }
 
-bfs(from: 0)
-print(cnt - 1)
+dfs(from: 0)
+print(ans-1)
