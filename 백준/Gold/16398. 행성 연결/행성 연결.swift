@@ -29,15 +29,13 @@ var edges = [(u:Int, v:Int, cost:Int)]()
 var arr = Array(repeating: -1, count: N)
 var ans = 0
 
-for _ in 0..<N{
-    cost.append(readArr())
-}
-
 for U in 0..<N{
+    cost.append(readArr())
     for V in U+1..<N{
         edges.append((U,V,cost[U][V]))
     }
 }
+
 edges.sort(by: {$0.cost < $1.cost})
 
 for edge in edges {
