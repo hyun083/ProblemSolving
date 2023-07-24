@@ -10,9 +10,7 @@ func cost(from u:Planet, to v:Planet) -> Double{
 }
 
 func root(of node:Int) -> Int{
-    if arr[node] < 0{
-        return node
-    }
+    if arr[node] < 0{ return node }
     
     arr[node] = root(of: arr[node])
     return arr[node]
@@ -55,6 +53,7 @@ for i in 0..<N-1{
         edges.append((i,k,cost(from: planets[i], to: planets[k])))
     }
 }
+
 edges.sort(by: {$0.cost > $1.cost})
 
 while cnt > 1{
