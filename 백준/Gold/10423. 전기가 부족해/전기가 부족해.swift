@@ -17,20 +17,22 @@ func union(a:Int, b:Int, c:Int){
     let rootA = root(of: a)
     let rootB = root(of: b)
     
-    if rootA == rootB{ return }
-    if pwr[rootA] && pwr[rootB]{ return }
+    if rootA==rootB || pwr[rootA]&&pwr[rootB]{ return }
     
     if pwr[rootA]{
-        arr[rootA] += arr[rootB]
         cnt -= arr[rootB]
         arr[rootB] = rootA
     }else if pwr[rootB]{
-        arr[rootB] += arr[rootA]
         cnt -= arr[rootA]
         arr[rootA] = rootB
     }else{
-        arr[rootA] += arr[rootB]
-        arr[rootB] = rootA
+        if arr[rootA] <= arr[rootB]{
+            arr[rootA] += arr[rootB]
+            arr[rootB] = rootA
+        }else{
+            arr[rootB] += arr[rootA]
+            arr[rootA] = rootB
+        }
     }
     ans += c
 }
