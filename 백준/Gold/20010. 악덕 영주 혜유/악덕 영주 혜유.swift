@@ -33,9 +33,7 @@ final class FileIO {
 }
 
 func root(of node:Int) -> Int{
-    if arr[node]<0{
-        return node
-    }
+    if arr[node]<0{ return node }
     
     arr[node] = root(of: arr[node])
     return arr[node]
@@ -52,37 +50,6 @@ func union(a:Int, b:Int, cost:Int){
     map[a].append((b,cost))
     map[b].append((a,cost))
 }
-let fio = FileIO()
-
-let N = fio.readInt()
-let M = fio.readInt()
-
-var arr = Array(repeating: -1, count: N)
-var cnt = N
-var sum = 0
-
-var maxEdge = 0
-var edges = [(u:Int, v:Int, cost:Int)]()
-var idx = 0
-var map = Array(repeating: [(node:Int, cost:Int)](), count: N)
-
-for _ in 0..<M{
-    
-    let u = fio.readInt()
-    let v = fio.readInt()
-    let c = fio.readInt()
-    
-    edges.append((u,v,c))
-}
-edges.sort(by: {$0.cost < $1.cost})
-
-while cnt>1 && idx<edges.count{
-    let edge = edges[idx]
-    
-    union(a: edge.u, b: edge.v, cost: edge.cost)
-    idx += 1
-}
-print(sum)
 
 func bfs(from node:Int) -> Int{
     var visited = Array(repeating: false, count: N)
@@ -109,6 +76,37 @@ func bfs(from node:Int) -> Int{
     
     return res
 }
+
+let fio = FileIO()
+
+let N = fio.readInt()
+let M = fio.readInt()
+
+var arr = Array(repeating: -1, count: N)
+var cnt = N
+var sum = 0
+
+var maxEdge = 0
+var edges = [(u:Int, v:Int, cost:Int)]()
+var idx = 0
+var map = Array(repeating: [(node:Int, cost:Int)](), count: N)
+
+for _ in 0..<M{
+    let u = fio.readInt()
+    let v = fio.readInt()
+    let c = fio.readInt()
+    
+    edges.append((u,v,c))
+}
+edges.sort(by: {$0.cost < $1.cost})
+
+while cnt>1 && idx<edges.count{
+    let edge = edges[idx]
+    
+    union(a: edge.u, b: edge.v, cost: edge.cost)
+    idx += 1
+}
+print(sum)
 
 for i in 0..<N{
     maxEdge = max(maxEdge, bfs(from: i))
