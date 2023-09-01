@@ -6,14 +6,14 @@ var visited = [Bool]()
 var color = [Int]()
 var ans = Bool()
 
-func dfs(from curr:Int, currColor:Int){
+func dfs(from curr:Int){
     for next in arr[curr]{
         if !visited[next]{
             visited[next] = true
-            color[next] = currColor==0 ? 1:0
-            dfs(from: next, currColor: color[next])
+            color[next] = color[curr]==0 ? 1:0
+            dfs(from: next)
         }else{
-            if currColor == color[next]{
+            if color[curr] == color[next]{
                 ans = false
             }
         }
@@ -38,7 +38,7 @@ for _ in 0..<T{
         if !visited[i] {
             visited[i] = true
             color[i] = 0
-            dfs(from: i, currColor: 0)
+            dfs(from: i)
         }
     }
     print(ans ? "YES":"NO")
