@@ -9,7 +9,7 @@ var f = [(x:Int,y:Int,time:Int,isFire:Bool)]()
 var map = Array(repeating: Array(repeating: "", count: c), count: r)
 var time = Array(repeating: Array(repeating: 0, count: c), count: r)
 var visited = Array(repeating: Array(repeating: Array(repeating: false, count: c), count: r), count: 2)
-var ans = Int.max
+var ans = -1
 
 for i in 0..<r{
     let input = readLine()!.map{String($0)}
@@ -47,7 +47,10 @@ while idx < q.count{
             }
         }
     }else{
-        if curr.x==0 || curr.x==r-1 || curr.y==0 || curr.y==c-1{ ans = min(ans, curr.time+1) }
+        if curr.x==0 || curr.x==r-1 || curr.y==0 || curr.y==c-1{
+            ans = curr.time+1
+            break
+        }
         for i in 0..<4{
             let nx = curr.x + dx[i]
             let ny = curr.y + dy[i]
@@ -69,4 +72,4 @@ while idx < q.count{
     idx += 1
 }
 
-print(ans == Int.max ? "IMPOSSIBLE":ans)
+print(ans<0 ? "IMPOSSIBLE":ans)
