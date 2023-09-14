@@ -4,10 +4,11 @@ let (A,B,N,M) = [readLine()!.split(separator: " ").map{Int($0)!}].map{($0[0], $0
 var ans = Array(repeating: Int.max, count: 100001)
 
 func bfs(from root:Int){
+    let dx = [1,-1,-A,A,-B,B,A,B]
     var q = [(node:Int, cost:Int)]()
     var idx = 0
-    let dx = [1,-1,-A,A,-B,B,A,B]
     
+    ans[root] = 0
     q.append((root,0))
     
     while idx < q.count{
