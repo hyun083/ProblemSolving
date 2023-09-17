@@ -1,0 +1,69 @@
+import Foundation
+
+//by rhyno
+final class FileIO {
+    private let buffer:[UInt8]
+    private var index: Int = 0
+
+    init(fileHandle: FileHandle = FileHandle.standardInput) {
+        
+        buffer = Array(try! fileHandle.readToEnd()!)+[UInt8(0)] // 인덱스 범위 넘어가는 것 방지
+    }
+
+    @inline(__always) private func read() -> UInt8 {
+        defer { index += 1 }
+
+        return buffer[index]
+    }
+
+    @inline(__always) func readInt() -> Int {
+        var sum = 0
+        var now = read()
+        var isPositive = true
+
+        while now == 10
+                || now == 32 { now = read() } // 공백과 줄바꿈 무시
+        if now == 45 { isPositive.toggle(); now = read() } // 음수 처리
+        while now >= 48, now <= 57 {
+            sum = sum * 10 + Int(now-48)
+            now = read()
+        }
+
+        return sum * (isPositive ? 1:-1)
+    }
+}
+
+let file = FileIO()
+let N = file.readInt()
+let R = file.readInt()-1
+let Q = file.readInt()
+
+var visited = Array(repeating: false, count: N)
+var arr = Array(repeating: [Int](), count: N)
+var ans = Array(repeating: 1, count: N)
+
+for _ in 0..<N-1{
+    let u = file.readInt()-1
+    let v = file.readInt()-1
+    arr[u].append(v)
+    arr[v].append(u)
+}
+
+func dfs(from curr:Int) -> Int{
+    for next in arr[curr]{
+        if !visited[next]{
+            visited[next] = true
+            ans[curr] += dfs(from: next)
+        }
+    }
+    
+    return ans[curr]
+}
+
+visited[R] = true
+dfs(from: R)
+
+for _ in 0..<Q{
+    let root = file.readInt()-1
+    print(ans[root])
+}
