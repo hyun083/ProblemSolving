@@ -11,9 +11,9 @@ if cranes[0] < boxes[0]{
 }else{
     while !boxes.isEmpty{
         for crane in cranes {
-            for i in 0..<boxes.count{
-                if crane >= boxes[i]{
-                    boxes.remove(at: i)
+            for box in boxes {
+                if crane >= box{
+                    boxes.remove(at: boxes.firstIndex(of: box)!)
                     break
                 }
             }
