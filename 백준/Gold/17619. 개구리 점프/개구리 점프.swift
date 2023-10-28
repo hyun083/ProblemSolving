@@ -10,37 +10,42 @@ func root(of node:Int) -> Int{
     return arr[node]
 }
 
-func union(a:Int, b:Int) -> Bool{
+func union(a:Int, b:Int){
     let A = root(of: a)
     let B = root(of: b)
     
-    if A==B { return false}
+    if A==B { return }
     arr[B] = A
-    return true
 }
 
 for num in 0..<N{
     let (x1, x2, y) = [readLine()!.split(separator: " ").map{Int($0)!}].map{($0[0], $0[1], $0[2])}[0]
     nodes.append((num,x1,x2,y))
 }
-nodes.sort(by: {
-    if $0.x1 == $1.x1{
-        return $0.y < $1.y
-    }else{
-        return $0.x1 < $1.x1
-    }
-})
+nodes.sort(by: {$0.x1 < $1.x1})
 
-for i in 0..<N-1{
-    let u = nodes[i]
-    let v = nodes[i+1]
-    
-    if u.x1 <= v.x1 && v.x1 <= u.x2{
-        union(a: u.num, b: v.num)
+var p = nodes[0].num
+var end = nodes[0].x2
+
+for i in 1..<N{
+    let node = nodes[i]
+    if node.x1<=end{
+        if node.x2 <= end{
+            union(a: p, b: node.num)
+        }else{
+            union(a: p, b: node.num)
+            end = node.x2
+            p = node.num
+        }
+    }else{
+        p = node.num
+        end = node.x2
     }
 }
 
+var ans = [String]()
 for _ in 0..<Q{
     let (u,v) = [readLine()!.split(separator: " ").map{Int($0)!}].map{($0[0]-1, $0[1]-1)}[0]
-    print(root(of: u) == root(of: v) ? 1:0)
+    ans.append(root(of: u)==root(of: v) ? "1":"0")
 }
+print(ans.joined(separator: "\n"))
