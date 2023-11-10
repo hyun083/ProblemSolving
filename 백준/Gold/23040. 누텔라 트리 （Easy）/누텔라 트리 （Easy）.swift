@@ -53,7 +53,6 @@ var ans = 0
 var arr = Array(repeating: -1, count: N)
 var map = Array(repeating: [Int](), count: N)
 var visited = Array(repeating: false, count: N)
-var numberOfBlackFrom = Array(repeating: 0, count: N)
 
 func root(of node:Int) -> Int{
     if arr[node] < 0 { return node }
@@ -80,7 +79,7 @@ for _ in 0..<N-1{
 
 var colorOf = file.readString().map{String($0)}
 
-func bfs(from vertex:Int){
+func bfs(from vertex:Int) -> Int{
     var q = [vertex]
     var cnt = 0
     var idx = 0
@@ -98,14 +97,14 @@ func bfs(from vertex:Int){
         }
         idx += 1
     }
-    numberOfBlackFrom[root(of: vertex)] = cnt
+    
+    return cnt * abs(arr[root(of: vertex)])
 }
 
 for i in 0..<N{
     if colorOf[i] == "R" && !visited[i]{
         visited[i] = true
-        bfs(from: i)
-        ans += numberOfBlackFrom[i] * abs(arr[root(of: i)])
+        ans += bfs(from: i)
     }
 }
 print(ans)
