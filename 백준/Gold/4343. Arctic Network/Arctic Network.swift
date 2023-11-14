@@ -14,8 +14,6 @@ for _ in 0..<N{
     var tmp = [(u:Int, v:Int, cost:Double)]()
     var comp = P
     var ans:Double = 0
-    var indegree:[Double] = Array(repeating: 0, count: P)
-    var hasSatellite = Array(repeating: false, count: P)
     
     func root(of node:Int) -> Int{
         if arr[node]<0 {return node}
@@ -29,8 +27,6 @@ for _ in 0..<N{
         
         if A==B { return }
         tmp.append((a,b,cost))
-        indegree[a] += cost
-        indegree[b] += cost
         arr[B] = A
         comp -= 1
     }
@@ -52,11 +48,7 @@ for _ in 0..<N{
         let edge = edges.removeLast()
         union(a: edge.u, b: edge.v, cost: edge.cost)
     }
-    
-    for _ in 0..<S-1{
-        tmp.removeLast()
-    }
-    ans = tmp.last!.cost
-    
+
+    ans = tmp[tmp.count-S].cost
     print(String(format: "%.2f", ans))
 }
