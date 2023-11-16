@@ -23,10 +23,6 @@ func dfs(x:Int, y:Int, step:Int){
             ny += dy[0]
             if nx<0 || nx>=N || ny<0 || ny>=N { continue }
             bfs(x: nx, y: ny, dir: 0)
-            if nx == 0 && ny == -1 {
-                print(nx,ny)
-                return
-            }
         }
         
         for _ in 0..<step{
@@ -60,7 +56,6 @@ func bfs(x:Int, y:Int, dir:Int){
     let ddy = [[-1, -2, -1, -1, 0, 0, 0, 0, 1, 1],[0, 0, 1, -1, 1, -1, 2, -2, 1, -1],[1, 2, 1, 1, 0, 0, 0, 0, -1, -1],[0, 0, 1, -1, 1, -1, 2, -2, 1, -1]]
     let percent = [0,5,10,10,7,7,2,2,1,1]
 
-    if x<=0 && y<0 { return }
     var remain = 0
     let origin = map[x][y]
     
