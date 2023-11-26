@@ -13,10 +13,10 @@ func solution(_ clothes:[[String]]) -> Int {
     }
     
     if dic.count > 1{
-        answer += dic.values.reduce(1, {$0 * $1})-1
+        answer += dic.values.reduce(1, {$0 * $1})
     }else{
-        answer += dic.values.reduce(0, +)-1
+        answer += dic.values.reduce(0, +)
     }
 
-    return answer
+    return answer-1
 }
