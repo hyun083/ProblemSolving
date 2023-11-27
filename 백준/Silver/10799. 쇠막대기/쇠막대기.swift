@@ -1,17 +1,16 @@
 import Foundation
 
 let N = readLine()!.replacingOccurrences(of: "()", with: "*").map{String($0)}
-var stk = [String]()
+var stk = 0
 var ans = 0
 
-for i in 0..<N.count{
-    let curr = N[i]
+for curr in N{
     if curr == "("{
-        stk.append(curr)
+        stk += 1
     }else if curr == "*"{
-        ans += stk.count
+        ans += stk
     }else{
-        stk.removeLast()
+        stk -= 1
         ans += 1
     }
 }
