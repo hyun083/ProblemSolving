@@ -137,27 +137,20 @@ for _ in 0..<M{
     }
 }
 
-if map[N-1].isEmpty{
-    print(-1)
-}else{
-    cost[0] = 0
-    visited[0] = true
-    q.insert((0,0))
+cost[0] = 0
+q.insert((0,0))
+
+while !q.isEmpty{
+    let curr = q.delete()!
+    if cost[curr.node] < curr.cost { continue }
     
-    while !q.isEmpty{
-        let curr = q.delete()!
-        if cost[curr.node] < curr.cost { continue }
-        visited[curr.node] = true
+    for next in map[curr.node]{
+        let newCost = cost[curr.node] + next.cost
         
-        for next in map[curr.node]{
-            let newCost = cost[curr.node] + next.cost
-            if visited[next.node] { continue }
-            
-            if cost[next.node]<0 || cost[next.node]>newCost{
-                cost[next.node] = newCost
-                q.insert((next.node, newCost))
-            }
+        if cost[next.node]<0 || cost[next.node]>newCost{
+            cost[next.node] = newCost
+            q.insert((next.node, newCost))
         }
     }
-    print(cost[N-1])
 }
+print(cost[N-1])
