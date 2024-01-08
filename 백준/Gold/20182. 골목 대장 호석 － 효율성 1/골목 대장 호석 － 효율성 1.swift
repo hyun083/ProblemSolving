@@ -54,7 +54,7 @@ var q = [(node:Int, cost:Int, shame:Int)]()
 var dq = q
 var minShame = Array(repeating: -1, count: N)
 minShame[A] = 0
-q.append((0,0,0))
+q.append((A,0,0))
 
 while !q.isEmpty{
     dq = q.reversed()
@@ -66,15 +66,15 @@ while !q.isEmpty{
         if curr.node == B { break }
         
         for next in map[curr.node]{
-            let newShame = max(next.cost, curr.shame)
+            let nextShame = max(next.cost, curr.shame)
             if curr.cost+next.cost > C { continue }
             
-            if minShame[next.node]<0 || minShame[next.node]>newShame{
-                minShame[next.node] = newShame
-                q.append((next.node, curr.cost+next.cost, newShame))
+            if minShame[next.node]<0 || minShame[next.node]>nextShame{
+                minShame[next.node] = nextShame
+                q.append((next.node, curr.cost+next.cost, nextShame))
             }
         }
     }
-    q.sort(by: {$0.shame > $1.shame})
+    q.sort(by: {$0.shame < $1.shame})
 }
 print(minShame[B])
