@@ -38,12 +38,12 @@ func dijk(from root:Int) -> [Int]{
     
     return minCost
 }
-var res = Dictionary<Int,[Int]>()
 
+var ans = Dictionary<Int,[Int]>()
 for _ in 0..<T{
     let (S,E) = [readLine()!.split(separator: " ").map{Int($0)!-1}].map{($0[0], $0[1])}[0]
-    if res[S] == nil{
-        res[S] = dijk(from: S)
+    if ans[S] == nil{
+        ans[S] = dijk(from: S)
     }
-    print(res[S]![E])
+    print(ans[S]![E])
 }
