@@ -18,8 +18,5 @@ while !arr.isEmpty{
         stk.append(arr.removeLast())
     }
 }
-while cnt<K{
-    stk.removeLast()
-    cnt += 1
-}
-for ans in stk{ print(ans,terminator:"") }
+
+for ans in stk[0..<N-K]{ print(ans,terminator:"") }
