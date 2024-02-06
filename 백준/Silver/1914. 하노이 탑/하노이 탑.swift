@@ -1,10 +1,6 @@
 import Foundation
 
 let N = Int(readLine()!)!
-var ans:[Decimal] = Array(repeating: 1, count: 101)
-for i in 2..<101{
-    ans[i] = pow(2, i)-Decimal(1)
-}
 
 func move(plate:Int,from:Int, by:Int, to:Int){
     if plate == 1{
@@ -17,8 +13,8 @@ func move(plate:Int,from:Int, by:Int, to:Int){
 }
 
 if N <= 20{
-    print(ans[N])
+    print(pow(2,N)-1)
     move(plate: N, from: 1, by: 2, to: 3)
 }else{
-    print(ans[N])
+    print(pow(2, N)-1)
 }
