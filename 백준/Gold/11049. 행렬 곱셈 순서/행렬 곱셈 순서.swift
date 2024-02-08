@@ -10,11 +10,6 @@ for _ in 0..<N{
     arr.append((n,m))
 }
 
-for i in 0..<N-1{
-    let value = arr[i].N * arr[i].M * arr[i+1].M
-    dp[i][i+1] = value
-}
-
 if N>1{
     for range in 1..<N{
         for i in 0..<N-range{
