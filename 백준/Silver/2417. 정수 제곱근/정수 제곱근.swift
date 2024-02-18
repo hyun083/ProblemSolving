@@ -12,7 +12,4 @@ while lo+1<hi{
         hi = mid
     }
 }
-if lo*lo < N{
-    lo += 1
-}
-print(lo)
+print(lo*lo<N ? lo+1:lo)
