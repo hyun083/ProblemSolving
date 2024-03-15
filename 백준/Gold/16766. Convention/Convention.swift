@@ -19,18 +19,12 @@ while lo<=hi{
             pre = arr[i]
             cnt = 1
             bus += 1
-            if i==N-1{
-                res = max(res, arr.last!-pre)
-                bus += 1
-            }
         }else{
             cnt += 1
-            if i==N-1{
-                res = max(res, arr.last!-pre)
-                bus += 1
-            }
         }
     }
+    res = max(res, arr.last!-pre)
+    bus += 1
     
     if bus<=M {
         ans = min(res, ans)
