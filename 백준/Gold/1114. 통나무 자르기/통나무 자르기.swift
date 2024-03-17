@@ -1,14 +1,11 @@
 import Foundation
 
 let (L,K,C) = [readLine()!.split(separator: " ").map{Int($0)!}].map{($0[0], $0[1], $0[2])}[0]
-var arr = [L]
-arr += readLine()!.split(separator: " ").map{Int($0)!}
-arr.append(0)
-
-arr = Set(arr).sorted(by: >)
+var arr = [L,0] + readLine()!.split(separator: " ").map{Int($0)!}
+arr.sort(by: >)
 
 var lo = 0
-var hi = Int.max/2
+var hi = 2000000000
 var ans = -1
 var pos = -1
 
@@ -31,11 +28,10 @@ while lo<=hi{
         }else{
             sum += (arr[i-1]-arr[i])
             if i==arr.count-1{
+                res = max(res, sum)
                 if cnt<C{
                     cnt += 1
                     tmpPos = arr[i-1]
-                    res = max(res, sum-(arr[i-1]-arr[i]))
-                    res = max(res, arr[i-1]-arr[i])
                 }
             }
         }
