@@ -11,10 +11,9 @@ for _ in 0..<M{
 }
 var ans = -1
 
-func bfs(limit:Int)->Bool{
-    var visited = Array(repeating: false, count: N)
-    visited[A] = true
-    
+func bfs(limit:Int) -> Bool{
+    var visited = Array(repeating: Int.max, count: N)
+    visited[A] = 0
     var q = [(node:Int, sum:Int, hi:Int)]()
     var dq = q
     q.append((A,0,0))
@@ -25,24 +24,26 @@ func bfs(limit:Int)->Bool{
         
         for _ in 0..<dq.count{
             let curr = dq.removeLast()
+            if curr.sum > visited[curr.node] { continue }
             if curr.node == B{
                 ans = curr.hi
                 return true
             }
             for next in map[curr.node]{
-                if visited[next.node] { continue }
-                if curr.sum + next.cost <= C && max(curr.hi, next.cost) <= limit{
-                    visited[next.node] = true
+                if curr.sum+next.cost >= visited[next.node] { continue }
+                if curr.sum+next.cost <= C && max(curr.hi, next.cost) <= limit{
+                    visited[next.node] = curr.sum + next.cost
                     q.append((next.node, curr.sum + next.cost, max(curr.hi, next.cost)))
                 }
             }
         }
+        q.sort(by: {$0.sum < $1.sum})
     }
     return false
 }
 
-var lo = 0
-var hi = Int.max/2
+var lo = 1
+var hi = 1000000000
 
 while lo<=hi{
     let mid = (lo+hi)/2
