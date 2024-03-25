@@ -7,6 +7,7 @@ var map = Array(repeating: [(node:Int, cost:Int)](), count: N)
 for _ in 0..<M{
     let (u,v,c) = [readLine()!.split(separator: " ").map{Int($0)!}].map{($0[0]-1, $0[1]-1, $0[2])}[0]
     map[u].append((v,c))
+    map[v].append((u,c))
 }
 var ans = -1
 
