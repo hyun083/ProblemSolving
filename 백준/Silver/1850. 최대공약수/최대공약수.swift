@@ -5,7 +5,4 @@ func gcd(a:Int, b:Int) -> Int{
     let r = a%b
     return r==0 ? b:gcd(a: b, b: r)
 }
-let cnt = gcd(a: A, b: B)
-for _ in 0..<cnt{
-    print("1",terminator: "")
-}
+print(String(repeating: "1", count: gcd(a: A, b: B)))
