@@ -1,8 +1,8 @@
 import Foundation
 
 let (N,M) = [readLine()!.split(separator: " ").map{Int($0)!}].map{($0[0], $0[1])}[0]
-let (Hx,Hy) = [readLine()!.split(separator: " ").map{Int($0)!}].map{($0[0]-1, $0[1]-1)}[0]
-let (Ex,Ey) = [readLine()!.split(separator: " ").map{Int($0)!}].map{($0[0]-1, $0[1]-1)}[0]
+let (Hx,Hy) = [readLine()!.split(separator: " ").map{Int($0)!-1}].map{($0[0], $0[1])}[0]
+let (Ex,Ey) = [readLine()!.split(separator: " ").map{Int($0)!-1}].map{($0[0], $0[1])}[0]
 var ans = -1
 
 var map = [[Int]]()
@@ -23,6 +23,7 @@ func bfs(){
     q.append((Hx,Hy,false,0))
     while idx < q.count{
         let curr = q[idx]
+        
         if curr.x == Ex && curr.y == Ey {
             ans = curr.cnt
             return
@@ -33,6 +34,7 @@ func bfs(){
             let ny = curr.y + dy[i]
             
             if nx<0 || nx>=N || ny<0 || ny>=M { continue }
+            
             if curr.wand{
                 if map[nx][ny]==0 && !visited[1][nx][ny]{
                     visited[1][nx][ny] = true
@@ -52,6 +54,5 @@ func bfs(){
         idx += 1
     }
 }
-
 bfs()
 print(ans)
