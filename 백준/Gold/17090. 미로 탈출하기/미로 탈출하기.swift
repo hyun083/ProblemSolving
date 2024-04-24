@@ -37,7 +37,10 @@ func dfs(x:Int, y:Int) -> Int{
 
 for i in 0..<N{
     for k in 0..<M{
-        ans += dfs(x: i, y: k)
+        if visited[i][k] < 0{
+            visited[i][k] = dfs(x: i, y: k)
+        }
+        ans += visited[i][k]
     }
 }
 print(ans)
