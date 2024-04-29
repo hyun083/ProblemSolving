@@ -13,15 +13,12 @@ for _ in 0..<N{
 let (x,y) = [readLine()!.split(separator: " ").map{Int($0)!-1}].map{($0[0], $0[1])}[0]
 
 func dfs(rx:Int, ry:Int, rd:Int){
-    var visited = Array(repeating: Array(repeating: false, count: M), count: N)
     let dx = [-1,0,1,0]
     let dy = [0,1,0,-1]
-    
     var q = [(x:Int, y:Int, d:Int)]()
     var idx = 0
     
     q.append((rx,ry,rd))
-    visited[rx][ry] = true
     
     while idx < q.count{
         let curr = q[idx]
@@ -59,6 +56,7 @@ func dfs(rx:Int, ry:Int, rd:Int){
             }
             return
         }
+        
         if idx > N*M*2{
             ans = N*M*2
             dir = rd
