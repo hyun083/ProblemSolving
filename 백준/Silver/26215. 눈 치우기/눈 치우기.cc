@@ -13,16 +13,16 @@ int main(int argc, const char * argv[]) {
         cin >> snow;
         arr.push_back(snow);
     }
+    
     int ans= 0;
-    while(!arr.empty()){
+    while(true){
         sort(arr.begin(),arr.end());
         if(arr.back() == 0){ break; }
         arr[N-1] --;
         ans ++;
-        if(arr[N-2]>0){
-            arr[N-2] --;
-        }
+        arr[N-2] -= arr[N-2]>0 ? 1:0;
     }
+    
     cout << (ans>1440 ? -1:ans) <<endl;
     return 0;
 }
