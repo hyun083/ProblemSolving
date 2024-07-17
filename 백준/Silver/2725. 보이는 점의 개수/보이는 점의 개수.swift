@@ -10,6 +10,7 @@ for i in 0...1000{
         var x = i+i
         var y = k+k
         ans[max(i, k)] += 1
+        
         while x<=1000 && y<=1000{
             dp[x][y] = false
             x += i
@@ -18,7 +19,11 @@ for i in 0...1000{
     }
 }
 
+for i in 1...1000{
+    ans[i] += ans[i-1]
+}
+
 for _ in 0..<C{
     let N = Int(readLine()!)!
-    print(ans[0...N].reduce(0, +))
+    print(ans[N])
 }
