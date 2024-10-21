@@ -7,8 +7,8 @@ let X = NMX[2]-1
 
 let maxCost = 100001
 var map = Array(repeating: Array(repeating: maxCost, count: N), count: N)
-var ans = Array(repeating: maxCost, count: N)
-ans[X] = 0
+var minCost = Array(repeating: maxCost, count: N)
+minCost[X] = 0
 for i in 0..<N{ map[i][i] = 0 }
 
 for _ in 0..<M{
@@ -21,9 +21,6 @@ for _ in 0..<M{
 }
 
 var q = [(node:Int, cost:Int)]()
-var visited = Array(repeating: false, count: N)
-visited[X] = true
-
 for i in 0..<N{
     if map[X][i] < maxCost{
         q.append((i,map[X][i]))
@@ -33,21 +30,21 @@ q.sort(by: {$0.cost > $1.cost})
 
 while !q.isEmpty{
     let cur = q.removeLast()
-    if ans[cur.node] < cur.cost{ continue }
+    if minCost[cur.node] < cur.cost{ continue }
    
     for next in 0..<N{
         let nextCost = map[cur.node][next]
-        if ans[next] > cur.cost + nextCost{
-            ans[next] = cur.cost + nextCost
-            q.append((next,ans[next]))
+        if minCost[next] > cur.cost + nextCost{
+            minCost[next] = cur.cost + nextCost
+            q.append((next,minCost[next]))
         }
     }
 }
 
-var res = 0
+var ans = 0
 for i in 0..<N{
-    if ans[i] < maxCost{
-        res = max(res, ans[i])
+    if minCost[i] < maxCost{
+        ans = max(ans, minCost[i])
     }
 }
-print(res*2)
+print(ans*2)
