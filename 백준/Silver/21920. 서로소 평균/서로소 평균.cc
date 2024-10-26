@@ -11,6 +11,9 @@ int euc(int A, int B){
 }
 
 int main() {
+    cin.tie(NULL);
+    ios_base::sync_with_stdio(false);
+    
     vector<int> arr;
     int N, X;
     long long total = 0;
