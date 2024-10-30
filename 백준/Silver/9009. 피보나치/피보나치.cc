@@ -20,6 +20,9 @@ vector<int> cal(vector<int> arr, int target){
 }
 
 int main(int argc, const char * argv[]) {
+    cin.tie(NULL);
+    ios_base::sync_with_stdio(false);
+    
     vector<int> tmp;
     vector<int> arr;
     int N;
