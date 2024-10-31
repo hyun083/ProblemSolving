@@ -4,16 +4,19 @@
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    int T;
+    cin.tie(NULL);
+    ios_base::sync_with_stdio(false);
+    
+    int T,N,W,B;
+    vector<int> origin,target;
     cin >> T;
     
     for(int i=0; i<T; i++){
-        int N=0;
         cin >> N;
-        vector<char> origin;
-        vector<char> target;
-        int W = 0;
-        int B = 0;
+        origin.clear();
+        target.clear();
+        W = 0;
+        B = 0;
         
         for(int i=0; i<N; i++){
             char stone;
