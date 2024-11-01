@@ -3,6 +3,9 @@
 using namespace std;
 
 int main(int argc, const char * argv[]) {
+    cin.tie(NULL);
+    ios_base::sync_with_stdio(false);
+    
     int N,D,M;
     int H=0, Y=0, U=0;
     int cost = 0;
