@@ -5,8 +5,6 @@ let N = NK[0]
 let K = NK[1]
 var sumA = 0
 var sumB = 0
-var A = [Int]()
-var B = [Int]()
 var overpower = false
 var ans = 0
 
