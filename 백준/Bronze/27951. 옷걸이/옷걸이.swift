@@ -1,12 +1,8 @@
 import Foundation
 
 let N = Int(readLine()!)!
-var arr = readLine()!.split(separator: " ").map{Int($0)!}
+var arr = readLine()!.split(separator: " ").map{String($0)}
 var clothes = readLine()!.split(separator: " ").map{Int($0)!}
-
-var U = 0
-var D = 0
-var B = 0
 
 var up = clothes[0]
 var down = clothes[1]
@@ -14,32 +10,45 @@ var down = clothes[1]
 var res = [String]()
 var ans = "YES"
 
-for info in arr{
-    U += info==1 ? 1 : 0
-    D += info==2 ? 1 : 0
-    B += info==3 ? 1 : 0
+for i in 0..<N{
+    let hanger = arr[i]
+    if hanger != "1" { continue }
+    
+    if up>0 {
+        arr[i] = "U"
+        up -= 1
+    } else {
+        ans = "NO"
+    }
 }
 
-for info in arr{
-    if info==1 && up>0{
-        res.append("U")
-        up -= 1
-    }else if info==2 && down>0{
-        res.append("D")
+for i in 0..<N{
+    let hanger = arr[i]
+    if hanger != "2" { continue }
+    
+    if down>0 {
+        arr[i] = "D"
         down -= 1
-    }else if info==3 && up>0{
-        res.append("U")
+    } else {
+        ans = "NO"
+    }
+}
+
+for i in 0..<N{
+    let hanger = arr[i]
+    if hanger != "3" { continue }
+    if up>0 {
+        arr[i] = "U"
         up -= 1
-    }else if info==3 && down>0{
-        res.append("D")
+    }else if down>0 {
+        arr[i] = "D"
         down -= 1
     }else{
         ans = "NO"
-        res = []
     }
 }
 
 print(ans)
 if ans=="YES"{
-    print(res.joined())
+    print(arr.joined())
 }
