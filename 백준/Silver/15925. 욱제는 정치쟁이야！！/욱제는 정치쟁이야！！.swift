@@ -11,49 +11,36 @@ for _ in 0..<N{
     map.append(line)
 }
 
-for i in 0..<N{
-    var cnt = 0
-    for k in 0..<N{
-        cnt += map[i][k]==T ? 1:0
-    }
-    if cnt > N/2{
-        map[i] = Array(repeating: T, count: N)
-    }
-}
-
-for i in 0..<N{
-    var cnt = 0
-    for k in 0..<N{
-        cnt += map[k][i]==T ? 1:0
-    }
-    if cnt > N/2{
+func checkRow(){
+    for i in 0..<N{
+        var cnt = 0
         for k in 0..<N{
-            map[k][i] = T
+            cnt += map[i][k]==T ? 1:0
+        }
+        if cnt > N/2{
+            map[i] = Array(repeating: T, count: N)
         }
     }
 }
 
-for i in 0..<N{
-    var cnt = 0
-    for k in 0..<N{
-        cnt += map[i][k]==T ? 1:0
-    }
-    if cnt > N/2{
-        map[i] = Array(repeating: T, count: N)
-    }
-}
-
-for i in 0..<N{
-    var cnt = 0
-    for k in 0..<N{
-        cnt += map[k][i]==T ? 1:0
-    }
-    if cnt > N/2{
+func checkCol(){
+    for i in 0..<N{
+        var cnt = 0
         for k in 0..<N{
-            map[k][i] = T
+            cnt += map[k][i]==T ? 1:0
+        }
+        if cnt > N/2{
+            for k in 0..<N{
+                map[k][i] = T
+            }
         }
     }
 }
+
+checkRow()
+checkCol()
+checkRow()
+checkCol()
 
 var ans = 0
 for i in 0..<N{
