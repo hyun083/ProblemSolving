@@ -7,8 +7,7 @@ for _ in 0..<N{
     let K = info.removeLast()
     
     var map = Array(repeating: Set<Int>(), count: N)
-    var visited = Array(repeating: false, count: N)
-    var ans = 0
+    var visited = Array(repeating: 0, count: N)
     
     for _ in 0..<K{
         let U = info.removeLast()
@@ -20,16 +19,15 @@ for _ in 0..<N{
     
     func dfs(from curr:Int){
         for next in map[curr]{
-            if !visited[next]{
-                visited[next] = true
-                ans += 1
+            if visited[next] == 0{
+                visited[next] = 1
                 dfs(from: next)
             }
         }
     }
     
-    visited[0] = true
-    ans += 1
+    visited[0] = 1
     dfs(from: 0)
+    let ans = visited.reduce(0,+)
     print(ans==N ? "Connected.":"Not connected.")
 }
