@@ -22,19 +22,11 @@ func check(from curr:Int) -> Bool{
     }
     
     arr.sort(by: <)
-    if arr == [1,2,3]{
-        return true
-    }else{
-        return false
-    }
+    return arr==[1,2,3]
 }
 
 for i in 0..<12{
-    var tmp = false
-    if indegree[i] == 3{
-        tmp = check(from: i)
-    }
-    if tmp{
+    if indegree[i]==3 && check(from: i){
         print(i+1)
         break
     }
