@@ -5,7 +5,6 @@ let N = NMAB[0]
 let M = NMAB[1]
 let A = NMAB[2]
 let B = NMAB[3]
-let dx = [A,B]
 var arr = [(L:Int,R:Int)]()
 
 for _ in 0..<M{
@@ -17,36 +16,32 @@ for _ in 0..<M{
 
 var visited = Array(repeating: Int.max, count: 1000000)
 var q = [(puppy:Int, cnt:Int)]()
-var dq = q
+var idx = 0
 q.append((0,0))
 visited[0] = 0
-var ans = -1
 
-while !q.isEmpty{
-    dq = q.reversed()
-    q.removeAll()
-    for _ in 0..<dq.count{
-        let curr = dq.removeLast()
+while idx < q.count{
+    let dx = [A,B]
+    let curr = q[idx]
+    
+    for nx in dx{
+        let nextPuppy = curr.puppy + nx
+        if nextPuppy > N { continue }
         
-        for nx in dx{
-            let nextPuppy = curr.puppy + nx
-            if nextPuppy > N { continue }
-            
-            var valid = true
-            for range in arr{
-                if range.L <= nextPuppy && nextPuppy <= range.R{
-                    valid = false
-                    break
-                }
-            }
-            
-            if valid{
-                if visited[nextPuppy] > curr.cnt+1{
-                    visited[nextPuppy] = curr.cnt+1
-                    q.append((nextPuppy, curr.cnt+1))
-                }
+        var valid = true
+        for range in arr{
+            if range.L <= nextPuppy && nextPuppy <= range.R{
+                valid = false
+                break
             }
         }
+        if !valid { continue }
+        
+        if visited[nextPuppy] > curr.cnt+1{
+            visited[nextPuppy] = curr.cnt+1
+            q.append((nextPuppy, curr.cnt+1))
+        }
     }
+    idx += 1
 }
 print(visited[N]==Int.max ? -1:visited[N])
