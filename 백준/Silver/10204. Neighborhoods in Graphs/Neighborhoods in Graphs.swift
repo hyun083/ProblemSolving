@@ -1,84 +1,20 @@
 import Foundation
 
-//by Rhyno
-final class FileIO {
-    private let buffer:[UInt8]
-    private var index: Int = 0
-
-    init(fileHandle: FileHandle = FileHandle.standardInput) {
-        
-        buffer = Array(try! fileHandle.readToEnd()!)+[UInt8(0)] // 인덱스 범위 넘어가는 것 방지
-    }
-
-    @inline(__always) private func read() -> UInt8 {
-        defer { index += 1 }
-
-        return buffer[index]
-    }
-
-    @inline(__always) func readInt() -> Int {
-        var sum = 0
-        var now = read()
-        var isPositive = true
-
-        while now == 10
-                || now == 32 { now = read() } // 공백과 줄바꿈 무시
-        if now == 45 { isPositive.toggle(); now = read() } // 음수 처리
-        while now >= 48, now <= 57 {
-            sum = sum * 10 + Int(now-48)
-            now = read()
-        }
-
-        return sum * (isPositive ? 1:-1)
-    }
-
-    @inline(__always) func readString() -> String {
-        var now = read()
-
-        while now == 10 || now == 32 { now = read() } // 공백과 줄바꿈 무시
-
-        let beginIndex = index-1
-
-        while now != 10,
-              now != 32,
-              now != 0 { now = read() }
-
-        return String(bytes: Array(buffer[beginIndex..<(index-1)]), encoding: .ascii)!
-    }
-
-    @inline(__always) func readByteSequenceWithoutSpaceAndLineFeed() -> [UInt8] {
-        var now = read()
-
-        while now == 10 || now == 32 { now = read() } // 공백과 줄바꿈 무시
-
-        let beginIndex = index-1
-
-        while now != 10,
-              now != 32,
-              now != 0 { now = read() }
-
-        return Array(buffer[beginIndex..<(index-1)])
-    }
-}
-
-let fio = FileIO()
-
-let T = fio.readInt()
+let T = Int(readLine()!.filter{$0 != " "})!
 
 for _ in 0..<T{
-    let N = fio.readInt()
-    let E = fio.readInt()
+    var info = readLine()!.split(separator: " ").map{String($0)}
+    let N = Int(info.removeFirst())!
+    let E = Int(info.removeFirst())!
+    let target = Int(info.removeLast().filter{$0 != "v"})!-1
+    
     var map = Array(repeating: Array(repeating: false, count: N), count: N)
-    for _ in 0..<E{
-        let U = fio.readString().filter{$0 != "v"}
-        let V = fio.readString().filter{$0 != "v"}
-        let u = Int(U)!-1
-        let v = Int(V)!-1
-        
-        map[u][v] = true
-        map[v][u] = true
+    for i in stride(from: 0, to: E*2, by: +2){
+        let U = Int(info[i].filter{$0 != "v"})!-1
+        let V = Int(info[i+1].filter{$0 != "v"})!-1
+        map[U][V] = true
+        map[V][U] = true
     }
-    let target = fio.readString().filter{$0 != "v"}
     
     func fw(from root:Int) -> Int{
         var res = Set<Int>()
@@ -94,6 +30,6 @@ for _ in 0..<T{
         }
         return res.count
     }
-    let res = fw(from:Int(target)!-1)
-    print("The number of supervillains in 2-hop neighborhood of v\(target) is \(res)")
+    let res = fw(from: target)
+    print("The number of supervillains in 2-hop neighborhood of v\(target+1) is \(res)")
 }
