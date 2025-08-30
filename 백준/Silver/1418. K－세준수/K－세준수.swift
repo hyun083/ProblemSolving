@@ -14,12 +14,12 @@ for num in 2...100000{
 }
 
 func getMaxPrime(of num:Int)->Int{
+    let SQRT = Int(sqrt(Double(num)))
     var res = 0
     var arr = [Int]()
-    for n in 1...Int(sqrt(Double(num))){
-        if num % n == 0{
-            arr.append(n)
-        }
+    
+    for n in 1...SQRT{
+        if num % n == 0{ arr.append(n) }
     }
     
     for n in arr{
@@ -37,6 +37,7 @@ func getMaxPrime(of num:Int)->Int{
 let N = Int(readLine()!)!
 let K = Int(readLine()!)!
 var ans = 0
+
 for num in 1...N{
     ans += getMaxPrime(of: num)<=K ? 1 : 0
 }
