@@ -6,8 +6,8 @@ let B = readLine()!.split(separator: " ").map{Int($0)!}
 
 var aWin = false
 var bWin = false
-var aCount = 0
-var bCount = 0
+var aPoint = 0
+var bPoint = 0
 
 var ans = 0
 
@@ -15,16 +15,24 @@ func winnerIsA(){
     aWin = true
     bWin = false
     
-    aCount += 1
-    bCount = 0
+    aPoint += 1
+    bPoint = 0
 }
 
 func winnerIsB(){
     aWin = false
     bWin = true
     
-    aCount = 0
-    bCount += 1
+    aPoint = 0
+    bPoint += 1
+}
+
+func draw(){
+    if aWin{
+        winnerIsB()
+    }else{
+        winnerIsA()
+    }
 }
 
 for i in 0..<N{
@@ -33,11 +41,7 @@ for i in 0..<N{
     
     if a==1{
         if b==1{
-            if aWin{
-                winnerIsB()
-            }else{
-                winnerIsA()
-            }
+            draw()
         }else if b==2{
             winnerIsB()
         }else{
@@ -47,11 +51,7 @@ for i in 0..<N{
         if b==1{
             winnerIsA()
         }else if b==2{
-            if aWin{
-                winnerIsB()
-            }else{
-                winnerIsA()
-            }
+            draw()
         }else{
             winnerIsB()
         }
@@ -61,14 +61,10 @@ for i in 0..<N{
         }else if b==2{
             winnerIsA()
         }else{
-            if aWin{
-                winnerIsB()
-            }else{
-                winnerIsA()
-            }
+            draw()
         }
     }
     
-    ans = max(ans, max(aCount,bCount))
+    ans = max(ans,max(aPoint,bPoint))
 }
 print(ans)
