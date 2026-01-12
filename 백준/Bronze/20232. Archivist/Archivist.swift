@@ -1,0 +1,30 @@
+import Foundation
+
+var ans = Dictionary<Int,String>()
+ans[1995] = "ITMO"
+ans[1996] = "SPbSU"
+ans[1997] = "SPbSU"
+ans[1998] = "ITMO"
+ans[1999] = "ITMO"
+ans[2000] = "SPbSU"
+ans[2001] = "ITMO"
+ans[2002] = "ITMO"
+ans[2003] = "ITMO"
+ans[2004] = "ITMO"
+ans[2005] = "ITMO"
+ans[2006] = "PetrSU, ITMO"
+ans[2007] = "SPbSU"
+ans[2008] = "SPbSU"
+ans[2009] = "ITMO"
+ans[2010] = "ITMO"
+ans[2011] = "ITMO"
+ans[2012] = "ITMO"
+ans[2013] = "SPbSU"
+ans[2014] = "ITMO"
+ans[2015] = "ITMO"
+ans[2016] = "ITMO"
+ans[2017] = "ITMO"
+ans[2018] = "SPbSU"
+ans[2019] = "ITMO"
+let N = Int(readLine()!)!
+print(ans[N]!)
