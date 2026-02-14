@@ -24,13 +24,9 @@ for _ in 0..<T{
     }
     
     res.append(temp)
-    while res.last=="0"{
+    while res.last=="0" && res.count>1{
         _ = res.removeLast()
     }
     
-    if res.isEmpty{
-        print("0")
-    }else{
-        print(res.reversed().joined())
-    }
+    print(res.reversed().joined())
 }
