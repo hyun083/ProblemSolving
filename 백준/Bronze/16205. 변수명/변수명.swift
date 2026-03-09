@@ -3,48 +3,46 @@ import Foundation
 let line = readLine()!.split(separator: " ").map{String($0)}
 let N = Int(line[0])!
 let name = line[1]
-var ans = [String]()
-var camelCase = name.map{String($0)}
-var snake_case = name.map{String($0)}
-var PascalCase = name.map{String($0)}
+var camelCase = [String]()
+var snake_case = [String]()
+var PascalCase = [String]()
 
 if N == 1 {
-    ans.append(name)
+    camelCase = name.map{String($0)}
     
-    var temp = [String]()
-    for target in snake_case.joined() {
-        if target.isUppercase { temp.append("_") }
-        temp.append(target.lowercased())
+    for target in name {
+        if target.isUppercase {
+            snake_case.append("_")
+        }
+        snake_case.append(target.lowercased())
     }
-    snake_case = temp
     
+    PascalCase = camelCase
     PascalCase[0] = PascalCase[0].capitalized
 } else if N == 2 {
-    PascalCase = []
+    snake_case = name.map{String($0)}
+    
     var temp = name.split(separator: "_").map{String($0)}
     for target in temp {
         var newTarget = target.map{String($0)}
         newTarget[0] = newTarget[0].uppercased()
         PascalCase.append(newTarget.joined())
-    }
-    let firstTarget = temp.removeFirst()
-    camelCase = [firstTarget]
-    for target in temp {
-        var newTarget = target.map{String($0)}
-        newTarget[0] = newTarget[0].uppercased()
         camelCase.append(newTarget.joined())
     }
+    
+    camelCase[0] = temp.removeFirst()
 } else {
+    PascalCase = name.map{String($0)}
+    
+    camelCase = name.map{String($0)}
     camelCase[0] = camelCase[0].lowercased()
     
-    var temp = [String]()
     for target in camelCase.joined(){
         if target.isUppercase {
-            temp.append("_")
+            snake_case.append("_")
         }
-        temp.append(String(target.lowercased()))
+        snake_case.append(String(target.lowercased()))
     }
-    snake_case = temp
 }
 print(camelCase.joined())
 print(snake_case.joined())
